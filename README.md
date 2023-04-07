@@ -2,20 +2,14 @@
 # LDS-Template
 
 ## Histórias de usuário
--Eu, como usuário, desejo fazer login no sistema utilizando meu próprio nome de usuário e senha para maior segurança da minha conta;
-
--Eu, como aluno, desejo me cadastrar utilizando meus dados pessoais para poder utilizar o sistema;
-
--Eu, como aluno, desejo consultar o extrato da minha conta para saber as transações da mesma;
-
--Eu como aluno, desejo receber as moedas para que eu possa utiliza-las;
-
--Eu, como aluno, desejo selecionar a vantagem na qual quero trocar meus pontos;
-
--Eu, como aluno, desejo trocar minhas moedas pelas vantagens que eu selecionar;
-
--Eu, como professor, desejo consultar o extrato da minha conta para saber as transações da mesma;
--Eu, como professor, desejo enviar moedas para meus alunos que eu avalio de forma positiva;
--Eu, como empresa, desejo me cadastrar utilizando meus dados para poder utilizar o sistema;
--Eu, como empresa, desejo cadastrar as vantagens que vou oferecer para que os alunos possam revindica-las;
+- Eu, como usuário, desejo fazer login no sistema utilizando meu próprio nome de usuário e senha para maior segurança da minha conta;
+- Eu, como aluno, desejo me cadastrar utilizando meus dados pessoais para poder utilizar o sistema;
+- Eu, como aluno, desejo consultar o extrato da minha conta para saber as transações da mesma;
+- Eu como aluno, desejo receber as moedas para que eu possa utiliza-las;
+- Eu, como aluno, desejo selecionar a vantagem na qual quero trocar meus pontos;
+- Eu, como aluno, desejo trocar minhas moedas pelas vantagens que eu selecionar;
+- Eu, como professor, desejo consultar o extrato da minha conta para saber as transações da mesma;
+- Eu, como professor, desejo enviar moedas para meus alunos que eu avalio de forma positiva;
+- Eu, como empresa, desejo me cadastrar utilizando meus dados para poder utilizar o sistema;
+- Eu, como empresa, desejo cadastrar as vantagens que vou oferecer para que os alunos possam revindica-las;
 
