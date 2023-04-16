@@ -5,7 +5,7 @@
 - US1 - Eu, como usuário, desejo fazer login no sistema utilizando meu próprio nome de usuário e senha para maior segurança da minha conta;
 - US2 - Eu, como aluno, desejo me cadastrar utilizando meus dados pessoais para poder utilizar o sistema;
 - US3 - Eu, como aluno, desejo consultar o extrato da minha conta para saber as transações da mesma;
-- US4 - Eu como aluno, desejo receber as moedas para que eu possa utiliza-las;
+- US4 - Eu, como aluno, desejo ser notificado quando receber moedas para que eu possa utiliza-las;
 - US5 - Eu, como aluno, desejo selecionar a vantagem na qual quero trocar meus pontos;
 - US6 - Eu, como aluno, desejo trocar minhas moedas pelas vantagens que eu selecionar;
 - US7 - Eu, como professor, desejo consultar o extrato da minha conta para saber as transações da mesma;
