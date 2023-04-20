@@ -1,5 +1,5 @@
 const router = require("express").Router()
-const dentistaController = require("../controllers/alunoController")
+const alunoController = require("../controllers/alunoController")
 
 // CREATE aluno
 router.route("/aluno").post((req, res) => alunoController.create(req, res))

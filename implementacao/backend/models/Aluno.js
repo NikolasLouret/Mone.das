@@ -25,7 +25,7 @@ const alunoSchema = new Schema(
         },
         curso:{
             type: String,
-            require: True
+            require: true
         },
         endereco:{
             cep:{
