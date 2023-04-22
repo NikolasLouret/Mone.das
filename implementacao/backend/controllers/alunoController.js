@@ -1,39 +1,32 @@
 const { Aluno: AlunoModel } = require("../models/Aluno")
-const { Carteira } = require("../models/Carteira")
-const fetch = require("node-fetch");
+const fetch = require("node-fetch")
+
 const alunoController = {
     create: async (req, res) => {
         try {
-            const { nome, email, senha, cpf, rg, curso, endereco } = req.body
-            var carteiraR = null
+            const { nome, email, senha, cpf, rg, instituicaoEnsino, curso, endereco } = req.body
             await fetch(`http://localhost:3000/api/carteira`, {
                 method: 'POST'
             })
-                .then((resp) => carteiraR = resp.json())
-            carteiraR.then(
-                async result => {
-                    let carteira = result.response
-                    aluno = {
-                        nome,
-                        email,
-                        senha,
-                        cpf,
-                        rg,
-                        curso,
-                        endereco,
-                        carteira
-                    },
-                        console.log(aluno),
-                        response = await AlunoModel.create(aluno),
-                        res.status(201).json({ response, msg: "Aluno cadastrado com sucesso!" })
+            .then(resp => { return resp.json() })
+            .then(async result => {
+                let carteira = result.response
+
+                aluno = {
+                    nome,
+                    email,
+                    senha,
+                    cpf,
+                    rg,
+                    curso,
+                    endereco,
+                    instituicaoEnsino,
+                    carteira
                 }
-            )
 
-
-
-
-
-
+                response = await AlunoModel.create(aluno)
+                res.status(201).json({ response, msg: "Aluno cadastrado com sucesso!" })
+            })
         } catch (error) {
             console.log(error)
         }
@@ -82,22 +75,13 @@ const alunoController = {
     update: async (req, res) => {
         try {
             const id = req.query.id
-            const { nome,
-                email,
-                senha,
-                cpf,
-                rg,
-                curso,
-                endereco } = req.body
+            const { senha, endereco, instituicaoEnsino, curso } = req.body
 
             const aluno = {
-                nome,
-                email,
                 senha,
-                cpf,
-                rg,
-                curso,
                 endereco,
+                instituicaoEnsino,
+                curso
             }
 
             const updatedAluno = await AlunoModel.findByIdAndUpdate(id, aluno)
