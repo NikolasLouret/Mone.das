@@ -4,7 +4,7 @@ const fetch = require("node-fetch");
 const alunoController = {
     create: async (req, res) => {
         try {
-            const { name, email, senha, cpf, rg, curso, endereco } = req.body
+            const { nome, email, senha, cpf, rg, curso, endereco } = req.body
             var carteiraR = null
             await fetch(`http://localhost:3000/api/carteira`, {
                 method: 'POST'
@@ -14,7 +14,7 @@ const alunoController = {
                 async result => {
                     let carteira = result.response
                     aluno = {
-                        name,
+                        nome,
                         email,
                         senha,
                         cpf,
@@ -82,7 +82,7 @@ const alunoController = {
     update: async (req, res) => {
         try {
             const id = req.query.id
-            const { name,
+            const { nome,
                 email,
                 senha,
                 cpf,
@@ -91,7 +91,7 @@ const alunoController = {
                 endereco } = req.body
 
             const aluno = {
-                name,
+                nome,
                 email,
                 senha,
                 cpf,

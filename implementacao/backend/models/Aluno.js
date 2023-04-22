@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const alunoSchema = new Schema(
     {
-        name: {
+        nome: {
             type: String,
             required: true
         },
@@ -15,27 +15,25 @@ const alunoSchema = new Schema(
             type: String,
             required: true
         },
-        cpf:{
-            type:String,
+        cpf: {
+            type: String,
             require: true
         },
-        rg:{
+        rg: {
             type: String,
             require: true,
         },
-        curso:{
+        instituicaoEnsino: {
+            type: Schema.Types.ObjectId,
+            ref: 'InstituicaoEnsino'
+        },
+        curso: {
             type: String,
             require: true
         },
-        endereco:{
-            cep:{
-                type: Number,
-                require: true
-            },
-            numero:{
-                type: Number,
-                require: true
-            }
+        endereco: {
+            type: Number,
+            require: true
         },
         carteira: {
             type: Schema.Types.ObjectId,
