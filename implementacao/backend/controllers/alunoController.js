@@ -33,7 +33,7 @@ const alunoController = {
     },
     getAll: async (req, res) => {
         try {
-            const alunos = await AlunoModel.find().populate("carteira")
+            const alunos = await AlunoModel.find().populate("carteira").populate("instituicaoEnsino")
 
             res.status(201).json(alunos)
         } catch (error) {
@@ -43,7 +43,7 @@ const alunoController = {
     get: async (req, res) => {
         try {
             const id = req.params.id
-            const aluno = await AlunoModel.findById(id).populate("carteira")
+            const aluno = await AlunoModel.findById(id).populate("carteira").populate("instituicaoEnsino")
 
             if (!aluno) {
                 res.status(404).json({ msg: "Usuário não encontrado!" })
