@@ -8,14 +8,8 @@ const instituicaoEnsinoSchema = new Schema(
             required: true
         },
         endereco:{
-            cep:{
                 type: Number,
-                require: true
-            },
-            numero:{
-                type: Number,
-                require: true
-            }
+                require: true    
         },
         cursos: [{
             type: String,
