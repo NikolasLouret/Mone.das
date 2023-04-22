@@ -9,11 +9,11 @@ const carteiraSchema = new Schema(
         },
         operacao: [{
             origem:{
-                type: String,
+                type: Schema.Types.ObjectId,
                 required: true
             },
             destino:{
-                type: String,
+                type: Schema.Types.ObjectId,
                 required: true
             },
             valor:{
