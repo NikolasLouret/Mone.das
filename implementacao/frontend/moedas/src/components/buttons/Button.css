@@ -5,9 +5,13 @@ button[type=submit].submit {
     height: 3rem;
     float: right;
     min-width: 30%;
+    transition: all .3s;
 }
 button[type=submit].submit:hover {
-    
+   color: #0075FF;
+    background-color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
 }
 
 button[type=button].switch {
@@ -18,7 +22,6 @@ button[type=button].switch {
     min-width: 20%;
     transition: all .3s;
 }
-
 button[type=button].switch:hover {
     background: #fff;
     color: rgba(40, 42, 51);
