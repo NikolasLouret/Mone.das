@@ -1,7 +1,7 @@
 import './Button.css'
 
 const Button = ({ type, className, id, onClick, children }) => {
-    return
+    return (
         <button type={ type }
             className={ className && className }
             id={ id }
@@ -9,6 +9,7 @@ const Button = ({ type, className, id, onClick, children }) => {
             >
                 { children }
             </button>
+    )
 }
 
 export default Button
