@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 const { Schema } = mongoose;
 
-const alunoSchema = new Schema(
+const professorSchema = new Schema(
     {
         nome: {
             type: String,
@@ -15,25 +15,25 @@ const alunoSchema = new Schema(
             type: String,
             required: true
         },
-        cpf: {
-            type: String,
+        cpf:{
+            type:String,
             require: true
         },
-        rg: {
+        rg:{
             type: String,
             require: true,
         },
-        instituicaoEnsino: {
+        curso:{
+            type: String,
+            require: true
+        },
+        departamento:{
+            type: String,
+            require: true
+        },
+        instituicaoEnsino:{
             type: Schema.Types.ObjectId,
             ref: 'InstituicaoEnsino'
-        },
-        curso: {
-            type: String,
-            require: true
-        },
-        endereco: {
-            type: String,
-            require: true
         },
         carteira: {
             type: Schema.Types.ObjectId,
@@ -43,9 +43,9 @@ const alunoSchema = new Schema(
     { timestemps: true }
 )
 
-const Aluno = mongoose.model("Aluno", alunoSchema)
+const Professor = mongoose.model("Professor", professorSchema)
 
 module.exports = {
-    Aluno,
-    alunoSchema
+    Professor,
+    professorSchema
 }

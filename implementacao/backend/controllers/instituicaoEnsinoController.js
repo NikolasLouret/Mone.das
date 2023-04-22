@@ -71,7 +71,7 @@ const InstituicaoEnsinoController = {
                 cursos   
                 }
 
-            const updatedInstituicaoEnsino = await AlunoModel.findByIdAndUpdate(id, InstituicaoEnsino)
+            const updatedInstituicaoEnsino = await InstituicaoEnsinoModel.findByIdAndUpdate(id, InstituicaoEnsino)
 
             if(!updatedInstituicaoEnsino) {
                 res.status(404).json({ msg: "InstituicaoEnsino não encontrado!" })

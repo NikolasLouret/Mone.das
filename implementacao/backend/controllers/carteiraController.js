@@ -8,14 +8,10 @@ const carteiraController = {
             const carteira = {
                 "saldo": 0,
                 "operacao": [
-                    {"origem" : "nada",
-                "destino": "nada",
-            "valor": 10
-            }
                 ]
                 
             }
-
+ 
             const response = await CarteiraModel.create(carteira);
 
             res.status(201).json({ response, msg: "Carteira cadastrado com sucesso!" })
