@@ -1,9 +1,10 @@
 
-div.cadastrar-aluno-body {
+div.cadastrar-body {
     display: flex;
     flex-direction: column;
     row-gap: 5rem;
-    width: 100%;
+    width: 60%;
+    padding: 10rem 0;
 }
 
 div.title {
@@ -47,4 +48,13 @@ div.cpf-rg, div.instituicao-curso {
     display: flex;
     width: 100%;
     column-gap: 1.5rem;
+}
+
+div.switch-user-type {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    column-gap: 1rem;
+    padding: 0 0 2rem;
 }
