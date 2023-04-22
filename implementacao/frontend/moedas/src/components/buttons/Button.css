@@ -1,0 +1,8 @@
+button[type=submit].submit {
+    background-color: #0075FF;
+    border: none;
+    border-radius: 10rem;
+    height: 3rem;
+    float: right;
+    min-width: 30%;
+}
