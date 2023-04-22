@@ -1,0 +1,50 @@
+
+div.cadastrar-aluno-body {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5rem;
+    width: 100%;
+}
+
+div.title {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+h5.subtitle {
+    margin: 0;
+    font-weight: 500;
+    font-size: 15px;
+    color: #9C9DA2;
+}
+
+h1.title {
+    margin: 0;
+    padding-bottom: 20px;
+    font-size: 50px;
+    font-weight: 600;
+}
+
+h1.title span {
+    color: #0075FF;
+}
+
+p.login {
+    margin: 0;
+    font-weight: 300;
+    font-size: 15px;
+    color: #9C9DA2;
+}
+
+p.login a {
+    font-weight: 300;
+    color: #0075FF;
+}
+
+div.cpf-rg, div.instituicao-curso {
+    display: flex;
+    width: 100%;
+    column-gap: 1.5rem;
+}
