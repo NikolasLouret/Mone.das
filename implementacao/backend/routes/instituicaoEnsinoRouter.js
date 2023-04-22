@@ -1,5 +1,5 @@
 const router = require("express").Router()
-const InstituicaoEnsinoController = require("../controllers/InstituicaoEnsinoController")
+const InstituicaoEnsinoController = require("../controllers/instituicaoEnsinoController")
 
 // CREATE carteira
 router.route("/instituicaoEnsino").post((req, res) => InstituicaoEnsinoController.create(req, res))

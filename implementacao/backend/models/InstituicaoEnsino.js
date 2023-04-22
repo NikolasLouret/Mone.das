@@ -8,7 +8,7 @@ const instituicaoEnsinoSchema = new Schema(
             required: true
         },
         endereco:{
-                type: Number,
+                type: String,
                 require: true    
         },
         cursos: [{
