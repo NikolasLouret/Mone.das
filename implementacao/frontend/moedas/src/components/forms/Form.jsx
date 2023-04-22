@@ -1,7 +1,7 @@
-import LinkedButton from '../linked-button/LinkedButton'
+import Button from '../buttons/Button'
 import './Form.css'
 
-const Form = ({ onSubmit, children, textButton, to }) => {
+const Form = ({ onSubmit, children, textButton }) => {
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -15,7 +15,7 @@ const Form = ({ onSubmit, children, textButton, to }) => {
         <form className="form-component" onSubmit={ handleSubmit }>
             { children }
             <div className="button-submit">
-                <LinkedButton type="submit" className="submit" id="submit" to={ to }>{ textButton }</LinkedButton>
+                <Button type="submit" className="submit" id="submit">{ textButton }</Button>
             </div>
         </form>
     )
