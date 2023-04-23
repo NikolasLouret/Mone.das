@@ -56,25 +56,27 @@ const Header = () => {
                 </div>
 
                 <div className="section-2">
-                    { currentUser ?
-                        <div className="subsection-2">
-                           <li>
-                                <Link to="/" onClick={ logoutUser }>Logout</Link>
-                            </li>
-                            <li>
-                                <Link to="/perfil">Perfil</Link>
-                            </li>
-                        </div>
-                        :
-                        <div className="subsection-2">
-                            <li>
-                                <Link to="/cadastrar">Cadatrar</Link>
-                            </li>
-                            <li>
-                                <Link to="/login">Entrar</Link>
-                            </li>
-                        </div>
-                    }
+                    <div className="subsection-2">
+                        { currentUser ?
+                            <>
+                                <li>
+                                    <Link to="/" onClick={ logoutUser }>Logout</Link>
+                                </li>
+                                <li>
+                                    <Link to="/perfil">Perfil</Link>
+                                </li>
+                            </>
+                            :
+                            <>
+                                <li>
+                                    <Link to="/cadastrar">Cadatrar</Link>
+                                </li>
+                                <li>
+                                    <Link to="/login">Entrar</Link>
+                                </li>
+                            </>
+                        }
+                    </div>
                 </div>
             </ul>
         </nav>
