@@ -4,7 +4,7 @@ button[type=submit].submit {
     border-radius: 10rem;
     height: 3rem;
     float: right;
-    min-width: 30%;
+    max-width: 20%;
     transition: all .3s;
 }
 button[type=submit].submit:hover {
@@ -25,4 +25,26 @@ button[type=button].switch {
 button[type=button].switch:hover {
     background: #fff;
     color: rgba(40, 42, 51);
+}
+
+button[type=button] {
+    transition: transform .3s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+        background-position .5s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+        box-shadow .3s linear;
+    background-size:contain;
+    background-position: -250px center;
+    background-repeat: no-repeat;
+}
+button[type=button]:hover {
+    transform: scale(1.1);
+    background-position: -60px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+button.yellow {
+    background: #FFC700;
+}
+
+button.black {
+    background: #1B1B1B;
 }
