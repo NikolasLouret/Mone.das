@@ -24,7 +24,10 @@ const alunoController = {
                     carteira
                 }
 
-                response = await AlunoModel.create(aluno)
+                let response = await AlunoModel.create(aluno)
+                response = await response.populate("instituicaoEnsino")
+                response = await response.populate("carteira")
+                
                 res.status(201).json({ response, msg: "Aluno cadastrado com sucesso!" })
             })
         } catch (error) {
@@ -75,23 +78,29 @@ const alunoController = {
     update: async (req, res) => {
         try {
             const id = req.query.id
-            const { senha, endereco, instituicaoEnsino, curso } = req.body
+            const { email, senha, endereco, instituicaoEnsino, curso } = req.body
 
             const aluno = {
+                email,
                 senha,
                 endereco,
                 instituicaoEnsino,
                 curso
             }
 
-            const updatedAluno = await AlunoModel.findByIdAndUpdate(id, aluno)
+            const updatedAluno = await AlunoModel.findByIdAndUpdate(id, aluno, { new: true })
 
             if (!updatedAluno) {
                 res.status(404).json({ msg: "Usuário não encontrado!" })
                 return
             }
 
-            res.status(200).json({ aluno, msg: "Usuário atualizado com sucesso!" })
+            let response = await updatedAluno.populate("instituicaoEnsino")
+            response = await response.populate("carteira")
+
+            console.log(response)
+
+            res.status(200).json({ response, msg: "Usuário atualizado com sucesso!" })
 
         } catch (error) {
             console.log(error)
