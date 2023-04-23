@@ -1,16 +1,12 @@
 import { Link } from 'react-router-dom'
 
 import { LoginContext } from '../../context/LoginContext'
-import { useEffect,useContext } from 'react'
+import { useContext } from 'react'
 
 import './Header.css'
 
 const Header = () => {
-    const { currentUser } = useContext(LoginContext)
-
-    useEffect(() => {
-
-    }, [])
+    const { currentUser, logoutUser } = useContext(LoginContext)
 
     return (
         <nav className="header">
@@ -61,11 +57,16 @@ const Header = () => {
 
                 <div className="section-2">
                     { currentUser ?
-                        <li>
-                            <Link to="/perfil">Perfil</Link>
-                        </li>
+                        <div className="subsection-2">
+                           <li>
+                                <Link to="/" onClick={ logoutUser }>Logout</Link>
+                            </li>
+                            <li>
+                                <Link to="/perfil">Perfil</Link>
+                            </li>
+                        </div>
                         :
-                        <div className="register-login-header">
+                        <div className="subsection-2">
                             <li>
                                 <Link to="/cadastrar">Cadatrar</Link>
                             </li>

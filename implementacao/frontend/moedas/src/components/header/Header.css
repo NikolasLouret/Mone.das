@@ -23,7 +23,7 @@ div.section-1 {
     column-gap: 15rem;
 }
 
-div.itens-header, div.register-login-header {
+div.itens-header, div.subsection-2 {
     display: inherit;
     justify-content: inherit;
     align-items: inherit;
