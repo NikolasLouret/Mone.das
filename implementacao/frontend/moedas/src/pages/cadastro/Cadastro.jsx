@@ -3,22 +3,30 @@ import Input from "../../components/inputs/Input"
 import Select from "../../components/selects/Select"
 import Form from "../../components/forms/Form"
 import Button from "../../components/buttons/Button"
-import { useEffect, useState } from 'react';
+
+//* React
+import { useEffect, useState, useContext } from 'react'
+import { useNavigate } from "react-router-dom"
+
+//* Context
+import { LoginContext } from "../../context/LoginContext"
 
 //* CSS
 import './Cadastro.css'
-import { useNavigate } from "react-router-dom";
 
 const CadastroAluno = () => {
     const url = "http://localhost:3000/api"
+
+    //* states
     const [instituicoes, setInstituicoes] = useState([])
     const [cursos, setCursos] = useState([])
     const [userType, setUserType] = useState("aluno")
-
+    
+    const { loginUser } = useContext(LoginContext)
     const navigate = useNavigate()
 
     useEffect(() => {
-        fetch(`${url}/instituicaoEnsino`, {
+        fetch(`${ url }/instituicaoEnsino`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -38,8 +46,7 @@ const CadastroAluno = () => {
         setUserType(target.id)
     }
 
-    const handleChangeCourse = (selectedId) => {
-
+    const handleChangeCourse = selectedId => {
         if(selectedId !== "0") {
             const instituicaoCursos = instituicoes.find(instituicao => instituicao._id === selectedId)
             setCursos(instituicaoCursos.cursos)
@@ -47,24 +54,32 @@ const CadastroAluno = () => {
             setCursos([])
     }
 
-    const handleSubmit = form => {
-        if(!form) {
+    const handleSubmit = formData => {
+        if(!formData) {
             return
         }
 
-        fetch(`${url}/${userType}`, {
+        const objectForm = Object.fromEntries(formData)
+        
+        fetch(`${ url }/${ userType }`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(form)
+            body: JSON.stringify(objectForm)
         })
         .then(resp => resp.json())
         .then(data => {
             alert(data.msg)
-            navigate('/')
+            
+            data.response.userType = userType
+            loginUser(data.response)
+            navigate('/perfil')
         })
-        .catch(err => alert("Não foi possível criar a conta. Erro: " + err))
+        .catch(err => {
+            console.error(err)
+            alert("Não foi possível criar a conta.")
+        })
     }
 
     return (
@@ -97,7 +112,7 @@ const CadastroAluno = () => {
 
                             <Input type="text" name="endereco" id="endereco" label="Endereço" required/>
                             <div className="instituicao-curso">
-                                <Select name="instituicaoEnsino" id="instituicaoEnsino" label="Instituição" objectOptions={ instituicoes } onChange={ handleChangeCourse } required/>
+                                <Select name="instituicaoEnsino" id="instituicaoEnsino" label="Instituição" options={ instituicoes } onChange={ handleChangeCourse } required/>
                                 <Select name="curso" id="curso" label="Curso" options={ cursos } required/>
                             </div>
                         </>
@@ -110,6 +125,9 @@ const CadastroAluno = () => {
                             <Input type="password" name="senha" id="senha" label="Senha" required/>
                         </>
                     }
+                    <div className="button-submit">
+                        <Button type="submit" className="submit" id="submit">Cadastrar</Button>
+                    </div>
                 </Form>
             </section>
         </div>
