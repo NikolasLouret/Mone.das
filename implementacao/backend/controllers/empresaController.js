@@ -4,7 +4,7 @@ const fetch = require("node-fetch");
 const EmpresaController = {
     create: async (req, res) => {
         try {
-            const { nome, email, senha, vantagens } = req.body
+            const { nome, email, senha } = req.body
 
             await fetch(`http://localhost:3000/api/carteira`, {
                 method: 'POST'
@@ -17,12 +17,11 @@ const EmpresaController = {
                         nome, 
                         email, 
                         senha,
-                        vantagens,
+                        vantagens: [],
                         carteira 
                     }
 
                     let response = await EmpresaModel.create(empresa)
-                    response = await response.populate("vantagens")
                     response = await response.populate("carteira")
 
                     res.status(201).json({ response, msg: "Empresa cadastrado com sucesso!" })
@@ -74,13 +73,12 @@ const EmpresaController = {
     update: async (req, res) => {
         try {
             const id = req.query.id
-            const { nome, email, senha, vantagens } = req.body
+            const { nome, email, senha } = req.body
             
             const empresa = {
                 nome, 
                 email, 
-                senha,
-                vantagens
+                senha
             }
 
             const updatedEmpresa = await EmpresaModel.findByIdAndUpdate(id, empresa, { new: true })
@@ -89,9 +87,12 @@ const EmpresaController = {
                 res.status(404).json({ msg: "Empresa não encontrado!" })
                 return
             }
+
+            let response = await updatedEmpresa.populate("carteira")
             
-            let response = await updatedEmpresa.populate("vantagens")
-            response = await response.populate("carteira")
+            if(updatedEmpresa.vantagens.length) {
+                response = await response.populate("Vantagens")
+            }
 
             res.status(200).json({ response, msg: "Empresa atualizado com sucesso!" })
 
