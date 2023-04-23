@@ -12,3 +12,6 @@
 - US8 - Eu, como professor, desejo enviar moedas para meus alunos que eu avalio de forma positiva;
 - US9 - Eu, como empresa, desejo me cadastrar utilizando meus dados para poder utilizar o sistema;
 - US10 - Eu, como empresa, desejo cadastrar as vantagens que vou oferecer para que os alunos possam revindica-las;
+
+## Slides
+https://docs.google.com/presentation/d/1REfz1zK9bUrnWYZLTdxeM2i3f5TTelSh5FpZiGNpnvQ/edit?usp=sharing
