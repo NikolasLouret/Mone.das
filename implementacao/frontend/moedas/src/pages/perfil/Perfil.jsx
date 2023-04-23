@@ -16,7 +16,7 @@ import './Perfil.css'
 const Perfil = () => {
     const url = "http://localhost:3000/api"
 
-    const { currentUser, loginUser } = useContext(LoginContext)
+    const { currentUser, loginUser, logoutUser } = useContext(LoginContext)
     const navigate = useNavigate()
 
     const [userType, setUserType] = useState("")
@@ -66,7 +66,9 @@ const Perfil = () => {
         .then(resp => resp.json())
         .then(data => {
             alert(data.msg)
-            navigate('/login')
+
+            logoutUser()
+            navigate('/cadastrar')
         })
         .catch(err => {
             console.error(err)
@@ -135,7 +137,7 @@ const Perfil = () => {
                 }
             </section>
 
-            <section className="form-section">
+            <section className={ `form-section-${ currentUser.userType }` }>
                 <Form className="form-edit" textButton="Editar" onSubmit={ handleSubmit } to="/">
                     <div className="inputs-form">    
                         <div className="edit-login">    

@@ -1,7 +1,7 @@
 div.perfil-body {
     display: flex;
     flex-direction: column;
-    row-gap: 5rem;
+    row-gap: 10rem;
 }
 
 section.description-section {
@@ -57,6 +57,16 @@ p.description {
 div.hud-btn {
     display: flex;
     column-gap: 2rem;
+}
+
+section.form-section-empresa {
+    width: 60%;
+    margin: 0 auto;
+}
+
+section.form-section-aluno {
+    width: 80%;
+    margin: 0 auto;
 }
 
 div.inputs-form {
