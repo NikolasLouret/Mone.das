@@ -22,7 +22,7 @@ const Perfil = () => {
     const [userType, setUserType] = useState("")
     const [instituicoes, setInstituicoes] = useState([])
     const [cursos, setCursos] = useState([])
-    const [instituicao, setInstituicao] = useState(currentUser.instituicaoEnsino)
+    const [instituicao, setInstituicao] = useState()
     const [id, setId] = useState("")
 
     useEffect(() => {
@@ -33,6 +33,8 @@ const Perfil = () => {
 
         setId(currentUser._id)
         setUserType(currentUser.userType)
+        setInstituicao(currentUser.instituicaoEnsino)
+        setCursos(currentUser.instituicaoEnsino.cursos)
 
         fetch(`${url}/instituicaoEnsino`, {
             method: "GET",
@@ -51,6 +53,7 @@ const Perfil = () => {
     const handleChangeCourse = selectedId => {
         if(selectedId !== "0") {
             const instituicaoCursos = instituicoes.find(instituicao => instituicao._id === selectedId)
+            setInstituicao(instituicaoCursos)
             setCursos(instituicaoCursos.cursos)
         } else
             setCursos([])
@@ -156,7 +159,7 @@ const Perfil = () => {
                                 <Input type="text" name="endereco" id="endereco" initialValue={ currentUser.endereco } label="Endereço" required/>
 
                                 <div className="instituicao-curso">
-                                    <Select name="instituicaoEnsino" id="instituicaoEnsino" label="Instituição" initialValue={ instituicao.nome } options={ instituicoes } onChange={ handleChangeCourse } required/>
+                                    <Select name="instituicaoEnsino" id="instituicaoEnsino" label="Instituição" initialValue={ instituicao._id } options={ instituicoes } onChange={ handleChangeCourse } required/>
                                     <Select name="curso" id="curso" label="Curso" options={ cursos } initialValue={ currentUser.curso } required/>
                                 </div>
                             </div>

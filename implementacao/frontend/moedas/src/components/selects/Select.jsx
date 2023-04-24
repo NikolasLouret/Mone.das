@@ -10,18 +10,19 @@ const Select = ({ id, name, className, onChange, options, initialValue, label, r
         onChange && onChange(target.value)
     }
 
-    useEffect(() => {
-        document.getElementById(id).selectedIndex = "2"
-        console.log(options)
-    }, [])
+    const optionIsAnObject = () => {
+        return options.some(optionElement => { return typeof optionElement == "object" })
+    }
 
     useEffect(() => {
         setOptionsValues(  
-            options.some(option => { return typeof option == "object" }) ?
-                options.map(option => <option key={ option._id } value={ option._id }>{ option.nome }</option>)
+            optionIsAnObject() ?
+                options.map(optionElement => <option key={ optionElement._id } value={ optionElement._id }>{ optionElement.nome }</option>)
            :
-                options.map(option => <option key={ option } value={ option }>{ option }</option>)
+                options.map(optionElement => <option key={ optionElement } value={ optionElement }>{ optionElement }</option>)
         )
+
+        setValue(initialValue)
     }, [options, initialValue])
 
     return (
@@ -33,6 +34,7 @@ const Select = ({ id, name, className, onChange, options, initialValue, label, r
                 onChange={ handleChange }
                 value={ value }
                 name={ name }
+                key={ value }
                 required={ required && required }
             >
                 <option value="0">Selecione uma opção</option>
