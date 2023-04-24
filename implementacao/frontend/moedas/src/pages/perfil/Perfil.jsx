@@ -111,7 +111,7 @@ const Perfil = () => {
                 { userType === "aluno" &&
                     <>
                         <div className="ponts">
-                            <span>pontos</span>
+                            <span>moedas</span>
                             <h1 className="ponts">{ currentUser.carteira.saldo }</h1>
                         </div>
 
