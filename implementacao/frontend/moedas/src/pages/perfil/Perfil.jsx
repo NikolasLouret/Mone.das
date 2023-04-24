@@ -33,8 +33,10 @@ const Perfil = () => {
 
         setId(currentUser._id)
         setUserType(currentUser.userType)
-        setInstituicao(currentUser.instituicaoEnsino)
-        setCursos(currentUser.instituicaoEnsino.cursos)
+        if(currentUser.userType == "aluno") {
+            setInstituicao(currentUser.instituicaoEnsino)
+            setCursos(currentUser.instituicaoEnsino.cursos)
+        }
 
         fetch(`${url}/instituicaoEnsino`, {
             method: "GET",
