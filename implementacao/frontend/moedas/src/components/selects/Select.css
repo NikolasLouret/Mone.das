@@ -11,18 +11,6 @@ div.select-component {
     position: relative;
 }
 
-div.select-component::after {
-    content: '\203A';
-    rotate: 90deg;
-    font-size: 3.5rem;
-    font-weight: 300;
-    width: 10px;
-    position: absolute;
-    top: 0;
-    right: 1.5rem;
-    left: auto;
-}
-
 div.select-component label {
     font-size: 15px;
     font-weight: 300;
@@ -38,7 +26,7 @@ div.select-component select {
     font-size: 20px;
     font-weight: 600;
     outline: none;
-    appearance: none;
+    position: relative;
 }
 
 div.select-component select:focus {
