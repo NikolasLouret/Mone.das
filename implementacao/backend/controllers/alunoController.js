@@ -1,42 +1,51 @@
 const { Aluno: AlunoModel } = require("../models/Aluno")
+const { Pessoa: PessoaModel } = require("../models/Pessoa")
+const { PessoaControler } = require("../controllers/pessoaController")
 const fetch = require("node-fetch")
 
 const alunoController = {
     create: async (req, res) => {
         try {
             const { nome, email, senha, cpf, rg, instituicaoEnsino, curso, endereco } = req.body
-            await fetch(`http://localhost:3000/api/carteira`, {
-                method: 'POST'
-            })
-            .then(resp => { return resp.json() })
-            .then(async result => {
-                let carteira = result.response
+            
 
-                aluno = {
-                    nome,
-                    email,
-                    senha,
-                    cpf,
-                    rg,
-                    curso,
-                    endereco,
-                    instituicaoEnsino,
-                    carteira
-                }
-
-                let response = await AlunoModel.create(aluno)
-                response = await response.populate("instituicaoEnsino")
-                response = await response.populate("carteira")
+                    await fetch(`http://localhost:3000/api/pessoa`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(
+                            {
+                                'nome': nome,
+                                'senha': senha,
+                                'email': email
+                            })
+                    }).then(resp => { return resp.json() })
+                        .then( async result => {
+                        
+                            let pessoa = result.response
+                            let aluno = {
+                                pessoa,
+                                cpf,
+                                rg,
+                                curso,
+                                endereco,
+                                instituicaoEnsino
+        
+                            }
+        
+                            let response = await AlunoModel.create(aluno)
+        
+                            res.status(201).json({ response, msg: "Aluno cadastrado com sucesso!" })
+                        })
                 
-                res.status(201).json({ response, msg: "Aluno cadastrado com sucesso!" })
-            })
         } catch (error) {
             console.log(error)
         }
     },
     getAll: async (req, res) => {
         try {
-            const alunos = await AlunoModel.find().populate("carteira").populate("instituicaoEnsino")
+            const alunos = await AlunoModel.find().populate("pessoa").populate("instituicaoEnsino")
 
             res.status(201).json(alunos)
         } catch (error) {
@@ -46,7 +55,7 @@ const alunoController = {
     get: async (req, res) => {
         try {
             const id = req.params.id
-            const aluno = await AlunoModel.findById(id).populate("carteira").populate("instituicaoEnsino")
+            const aluno = await AlunoModel.findById(id).populate("pessoa").populate("instituicaoEnsino")
 
             if (!aluno) {
                 res.status(404).json({ msg: "Usuário não encontrado!" })
@@ -78,25 +87,31 @@ const alunoController = {
     update: async (req, res) => {
         try {
             const id = req.query.id
-            const { email, senha, endereco, instituicaoEnsino, curso } = req.body
+            const { nome, email, senha, endereco, instituicaoEnsino, curso } = req.body
 
-            const aluno = {
+
+            let pessoaAlunoUpdate = {
+                nome,
                 email,
-                senha,
+                senha
+            }
+            const alunoUpdate = {
                 endereco,
                 instituicaoEnsino,
                 curso
             }
+            const updatedAluno = await AlunoModel.findByIdAndUpdate(id, alunoUpdate, { new: true })
 
-            const updatedAluno = await AlunoModel.findByIdAndUpdate(id, aluno, { new: true })
+            const updatePessoaAluno = await PessoaModel.findByIdAndUpdate(updatedAluno.pessoa._id, pessoaAlunoUpdate, {new: true})
+            
 
-            if (!updatedAluno) {
+            if (!updatedAluno || !updatePessoaAluno) {
                 res.status(404).json({ msg: "Usuário não encontrado!" })
                 return
             }
 
             let response = await updatedAluno.populate("instituicaoEnsino")
-            response = await response.populate("carteira")
+            response = await response.populate("pessoa")
 
             console.log(response)
 

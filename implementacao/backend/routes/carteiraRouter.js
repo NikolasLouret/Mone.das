@@ -16,5 +16,8 @@ router.route("/carteira").delete((req, res) => carteiraController.delete(req, re
 // UPDATE carteira
 router.route("/carteira").put((req, res) => carteiraController.update(req, res))
 
+// TRANSACAO carteira
+router.route("/carteira/transacao").put((req, res) => carteiraController.transacao(req, res))
+
 
 module.exports = router;

@@ -1,5 +1,5 @@
 const { Carteira: CarteiraModel } = require("../models/Carteira")
-
+const fetch = require("node-fetch")
 
 const carteiraController = {
     create: async (req, res) => {
@@ -9,9 +9,9 @@ const carteiraController = {
                 "saldo": 0,
                 "operacao": [
                 ]
-                
+
             }
- 
+
             const response = await CarteiraModel.create(carteira);
 
             res.status(201).json({ response, msg: "Carteira cadastrado com sucesso!" })
@@ -28,12 +28,12 @@ const carteiraController = {
             console.log(error)
         }
     },
-    get: async (req, res)=> {
+    get: async (req, res) => {
         try {
             const id = req.params.id
             const carteira = await CarteiraModel.findById(id)
 
-            if(!carteira) {
+            if (!carteira) {
                 res.status(404).json({ msg: "Carteira não encontrado!" })
                 return
             }
@@ -48,7 +48,7 @@ const carteiraController = {
             const id = req.query.id
             const carteira = await CarteiraModel.findById(id)
 
-            if(!carteira) {
+            if (!carteira) {
                 res.status(404).json({ msg: "Carteira não encontrado!" })
                 return
             }
@@ -60,33 +60,47 @@ const carteiraController = {
             console.log(error)
         }
     },
-    update: async (req, res) => {
-        try {
-            const id = req.query.id
-            const { name, email, senha } = req.body
-            
-            const aluno = {
-                name,
-                email,
-                senha,
-                cpf,
-                rg,
-                curso,
-                endereco,
-            }
+    transacao: async (req, res) => {
+        const {descricao, idRemetente, idDestinatario, valor } = req.body
 
-            const updatedAluno = await AlunoModel.findByIdAndUpdate(id, aluno)
-
-            if(!updatedAluno) {
-                res.status(404).json({ msg: "Usuário não encontrado!" })
-                return
-            }
-
-            res.status(200).json({ aluno, msg: "Usuário atualizado com sucesso!" })
-
-        } catch (error) {
-            console.log(error)
+        let remetente = await CarteiraModel.findById(idRemetente)
+        let destinatario = await CarteiraModel.findById(idDestinatario)
+        console.log(remetente)
+        if( remetente.saldo < valor){
+            res.status(404).json({msg : "O saldo da conta não é suficiente para a transação"})
         }
+        else{
+
+            remetente.saldo = remetente.saldo - valor
+            destinatario.saldo = destinatario.saldo + valor
+
+            remetente.operacao.push({
+                "descricao": descricao,
+                "origem" : idRemetente,
+                "destino" : idDestinatario,
+                "valor": valor*-1,
+                "data": new Date()
+            }) 
+            
+
+            destinatario.operacao.push({
+                "descricao": descricao,
+                "origem" : idRemetente,
+                "destino" : idDestinatario,
+                "valor": valor,
+                "data": new Date()
+            })
+            
+
+            const updatedRemetente = await CarteiraModel.findByIdAndUpdate(idRemetente, remetente, { new: true })
+            const updateDestinatário = await CarteiraModel.findByIdAndUpdate(idDestinatario, destinatario, { new: true })
+
+            
+                res.status(200).json({ msg: "Transação realizada com sucesso!" })
+                return
+            
+        }
+        
     }
 }
 

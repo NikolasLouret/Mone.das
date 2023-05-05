@@ -3,17 +3,9 @@ const { Schema } = mongoose;
 
 const alunoSchema = new Schema(
     {
-        nome: {
-            type: String,
-            required: true
-        },
-        email: {
-            type: String,
-            required: true
-        },
-        senha: {
-            type: String,
-            required: true
+        pessoa: {
+            type: Schema.Types.ObjectId,
+            ref: 'Pessoa'
         },
         cpf: {
             type: String,
@@ -34,10 +26,6 @@ const alunoSchema = new Schema(
         endereco: {
             type: String,
             require: true
-        },
-        carteira: {
-            type: Schema.Types.ObjectId,
-            ref: 'Carteira'
         }
     },
     { timestemps: true }

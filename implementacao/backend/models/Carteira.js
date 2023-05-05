@@ -8,6 +8,10 @@ const carteiraSchema = new Schema(
             required: true
         },
         operacao: [{
+            descricao:{
+                type: String,
+                required: true
+            },
             origem:{
                 type: Schema.Types.ObjectId,
                 required: true
@@ -19,8 +23,13 @@ const carteiraSchema = new Schema(
             valor:{
                 type: Number,
                 required: true
+            },
+            data: {
+                type: String,
+                require: true
             }
         }]
+        
     },
     { timestemps: true }
 )

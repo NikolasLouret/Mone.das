@@ -1,4 +1,5 @@
 const { Empresa: EmpresaModel } = require("../models/Empresa")
+const { Pessoa: PessoaModel } = require("../models/Pessoa")
 const fetch = require("node-fetch");
 
 const EmpresaController = {
@@ -6,23 +7,27 @@ const EmpresaController = {
         try {
             const { nome, email, senha } = req.body
 
-            await fetch(`http://localhost:3000/api/carteira`, {
-                method: 'POST'
+            await fetch(`http://localhost:3000/api/pessoa`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(
+                    {
+                        'nome': nome,
+                        'senha': senha,
+                        'email': email
+                    })
             })
             .then(resp => { return resp.json() })
             .then(async result => {
-                    let carteira = result.response
-
-                    const empresa = {
-                        nome, 
-                        email, 
-                        senha,
-                        vantagens: [],
-                        carteira 
+                    let pessoa = result.response
+                    empresa = {
+                        pessoa,
+                        vantagens: []
                     }
 
                     let response = await EmpresaModel.create(empresa)
-                    response = await response.populate("carteira")
 
                     res.status(201).json({ response, msg: "Empresa cadastrado com sucesso!" })
             })
@@ -73,17 +78,20 @@ const EmpresaController = {
     update: async (req, res) => {
         try {
             const id = req.query.id
-            const { nome, email, senha } = req.body
-            
-            const empresa = {
-                nome, 
-                email, 
+            const { nome, email, senha, vantagens } = req.body
+
+            let pessoaEmpresaUpdate = {
+                nome,
+                email,
                 senha
+            }
+            const empresa = {
+                vantagens
             }
 
             const updatedEmpresa = await EmpresaModel.findByIdAndUpdate(id, empresa, { new: true })
-            
-            if(!updatedEmpresa) {
+            const updatePessoaEmpresa = await PessoaModel.findByIdAndUpdate(updatedEmpresa.pessoa._id, pessoaEmpresaUpdate, {new: true})
+            if(!updatedEmpresa || !updatePessoaEmpresa) {
                 res.status(404).json({ msg: "Empresa não encontrado!" })
                 return
             }

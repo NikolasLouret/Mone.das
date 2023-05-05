@@ -1,40 +1,40 @@
 const { Professor: ProfessorModel } = require("../models/Professor")
+const { Pessoa: PessoaModel } = require("../models/Pessoa")
 const { Carteira } = require("../models/Carteira")
 const fetch = require("node-fetch");
 const professorController = {
     create: async (req, res) => {
         try {
             const { nome, email, senha, cpf, rg, curso, departamento, instituicaoEnsino } = req.body
-            var carteiraR = null
-            await fetch(`http://localhost:3000/api/carteira`, {
-                method: 'POST'
+            await fetch(`http://localhost:3000/api/pessoa`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(
+                    {
+                        'nome': nome,
+                        'senha': senha,
+                        'email': email
+                    })
             })
-                .then((resp) => carteiraR = resp.json())
-            carteiraR.then(
+                .then((resp) => resp.json())
+            .then(
                 async result => {
-                    let carteira = result.response
+
+                    let pessoa = result.response
                     professor = {
-                        nome,
-                        email,
-                        senha,
+                        pessoa,
                         cpf,
                         rg,
                         curso,
                         departamento,
-                        instituicaoEnsino,
-                        carteira
+                        instituicaoEnsino
                     },
-                        console.log(professor),
                         response = await ProfessorModel.create(professor),
                         res.status(201).json({ response, msg: "Professor cadastrado com sucesso!" })
                 }
             )
-
-
-
-
-
-
         } catch (error) {
             console.log(error)
         }
@@ -85,10 +85,12 @@ const professorController = {
             const id = req.query.id
             const { nome, email, senha, cpf, rg, curso, departamnto, instituicaoEnsino } = req.body
 
-            const professor = {
+            const professorPessoaUpdate = {
                 nome,
                 email,
-                senha,
+                senha
+            }
+            const professor = {
                 cpf,
                 rg,
                 curso,
@@ -96,9 +98,9 @@ const professorController = {
                 instituicaoEnsino
             }
 
-            const updatedProfessor = await ProfessorModel.findByIdAndUpdate(id, professor)
-
-            if (!updatedProfessor) {
+            const updatedProfessor = await ProfessorModel.findByIdAndUpdate(id, professor, { new: true })
+            const updatePessoaProfessor = await PessoaModel.findByIdAndUpdate(updatedProfessor.pessoa._id, professorPessoaUpdate, {new: true})
+            if (!updatedProfessor && !updatePessoaProfessor) {
                 res.status(404).json({ msg: "Usuário não encontrado!" })
                 return
             }
