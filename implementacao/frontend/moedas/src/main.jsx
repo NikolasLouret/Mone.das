@@ -12,6 +12,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 //* Pages User
 import Cadastro from './pages/cadastro/Cadastro.jsx'
 import Perfil from './pages/perfil/Perfil.jsx'
+import EnviarMoedas from './pages/professor/EnviarMoedas.jsx'
 
 const userRouter = createBrowserRouter([
   {
@@ -19,7 +20,8 @@ const userRouter = createBrowserRouter([
     element: <App />,
     children: [
       { path: "/cadastrar", element: <Cadastro /> },
-      { path: "/perfil", element: <Perfil /> }
+      { path: "/perfil", element: <Perfil /> },
+      { path: "/professor", element: <EnviarMoedas />}
     ]
   }
 ])
