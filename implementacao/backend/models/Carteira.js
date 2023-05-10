@@ -12,6 +12,10 @@ const carteiraSchema = new Schema(
                 type: String,
                 required: true
             },
+            tipo: {
+                type: Schema.Types.ObjectId,
+                required: true
+            },
             origem:{
                 type: Schema.Types.ObjectId,
                 required: true

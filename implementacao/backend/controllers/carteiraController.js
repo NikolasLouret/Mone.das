@@ -61,7 +61,7 @@ const carteiraController = {
         }
     },
     transacao: async (req, res) => {
-        const {descricao, idRemetente, idDestinatario, valor } = req.body
+        const { descricao, tipo, idRemetente, idDestinatario, valor } = req.body
 
         let remetente = await CarteiraModel.findById(idRemetente)
         let destinatario = await CarteiraModel.findById(idDestinatario)
@@ -76,6 +76,7 @@ const carteiraController = {
 
             remetente.operacao.push({
                 "descricao": descricao,
+                "tipo": tipo,
                 "origem" : idRemetente,
                 "destino" : idDestinatario,
                 "valor": valor*-1,
@@ -85,6 +86,7 @@ const carteiraController = {
 
             destinatario.operacao.push({
                 "descricao": descricao,
+                "tipo": tipo,
                 "origem" : idRemetente,
                 "destino" : idDestinatario,
                 "valor": valor,
