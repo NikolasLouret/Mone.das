@@ -1,0 +1,55 @@
+.parent {
+    display: flex;
+}
+
+.leftScreen {
+    flex: 0.9;
+}
+
+.rightScreen {
+    display: flex;
+    justify-content: end;
+    flex: 1.1;
+}
+
+.title {
+    display: inline;
+}
+
+.subtitle {
+    color: #A1A1A1;
+    text-align: justify;
+    margin-bottom: 50px;
+}
+
+.ponto {
+    display: inline-block;
+    color: #0075FF;
+    font-size: 80px;
+}
+
+.coin {
+    display: flex;
+    width: 470px;
+}
+
+.inputParent {
+    display: flex;
+}
+
+.input {
+    flex: 1;
+    margin-bottom: 20px;
+}
+
+.inputInformations {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    margin-left: 10px;
+}
+
+.divButton {
+    margin-top: 30px;
+}

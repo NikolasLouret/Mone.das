@@ -7,13 +7,11 @@ const carteiraController = {
         try {
 
             const carteira = {
-                "saldo": 0,
-                "operacao": [
-                ]
-
+                saldo: 0,
+                operacao: []
             }
 
-            const response = await CarteiraModel.create(carteira);
+            const response = await CarteiraModel.create(carteira)
 
             res.status(201).json({ response, msg: "Carteira cadastrado com sucesso!" })
         } catch (error) {
@@ -80,21 +78,24 @@ const carteiraController = {
             console.log(carteiraRemetente.saldo)
             carteiraRemetente.operacao.push({
                 "descricao": descricao,
+                "tipo": 'transferencia',
                 "origem" : idRemetente,
                 "destino" : idDestinatario,
                 "valor": valor*-1,
                 "data": new Date()
-            }) 
-            
+            })
 
             carteiraDestinatario.operacao.push({
                 "descricao": descricao,
+                "tipo": 'recebimento',
                 "origem" : idRemetente,
                 "destino" : idDestinatario,
                 "valor": valor,
                 "data": new Date()
             })
             
+            await CarteiraModel.findByIdAndUpdate(idRemetente, remetente, { new: true })
+            await CarteiraModel.findByIdAndUpdate(idDestinatario, destinatario, { new: true })
 
             const updatedRemetente = await CarteiraModel.findByIdAndUpdate(carteiraRemetente._id, carteiraRemetente, { new: true })
             const updateDestinatário = await CarteiraModel.findByIdAndUpdate(carteiraDestinatario._id, carteiraDestinatario, { new: true })
@@ -104,7 +105,6 @@ const carteiraController = {
                 return
             
         }
-        
     }
 }
 
