@@ -13,7 +13,7 @@ const carteiraSchema = new Schema(
                 required: true
             },
             tipo: {
-                type: Schema.Types.ObjectId,
+                type: Schema.Types.String,
                 required: true
             },
             origem:{
@@ -29,7 +29,7 @@ const carteiraSchema = new Schema(
                 required: true
             },
             data: {
-                type: String,
+                type: Date,
                 require: true
             }
         }]

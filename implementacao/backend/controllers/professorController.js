@@ -15,7 +15,8 @@ const professorController = {
                     {
                         'nome': nome,
                         'senha': senha,
-                        'email': email
+                        'email': email,
+                        'tipo': 'Professor'
                     })
             })
                 .then((resp) => resp.json())

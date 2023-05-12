@@ -15,6 +15,10 @@ const PessoaSchema = new Schema({
         type: String,
         required: true
     },
+    tipo:{
+        type: String,
+        required: true
+    },
     carteira: {
         type: Schema.Types.ObjectId,
         ref: 'Carteira'

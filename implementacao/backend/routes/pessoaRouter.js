@@ -8,7 +8,7 @@ router.route("/pessoa").post((req, res) => pessoaController.create(req, res))
 router.route("/pessoa").get((req, res) => pessoaController.getAll(req, res))
 
 // GET pessoa
-router.route("/pessoa/:id").get((req, res) => pessoaController.get(req, res))
+router.route("/pessoa/:id").get((req, res) => pessoaController.findById(req, res))
 
 // DELETE pessoa
 router.route("/pessoa").delete((req, res) => pessoaController.delete(req, res))
