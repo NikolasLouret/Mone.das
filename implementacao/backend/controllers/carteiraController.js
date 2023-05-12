@@ -60,50 +60,39 @@ const carteiraController = {
         }
     },
     transacao: async (req, res) => {
-        const {descricao, idRemetente, idDestinatario, valor } = req.body
-        const remetente = await Pessoa.findById(idRemetente)
-        const destinatario = await Pessoa.findById(idDestinatario)
+        const { descricao, origem, destino, valor } = req.body
 
+        const remetente = await Pessoa.findById(origem).populate('carteira')
+        const destinatario = await Pessoa.findById(destino).populate('carteira')
 
-        let carteiraRemetente = await CarteiraModel.findById(remetente.carteira)
-        let carteiraDestinatario = await CarteiraModel.findById(destinatario.carteira)
-        
-        if( remetente.saldo < valor){
-            res.status(404).json({msg : "O saldo da conta não é suficiente para a transação"})
+        if (!remetente || !destinatario) {
+            res.status(404).json({ msg: 'Remetente ou destinatário não encontrado' })
+            return
         }
-        else{
+        
+        if(remetente.carteira.saldo < valor) {
+            res.status(404).json({ msg : 'O saldo da conta não é suficiente para a transação' })
+        } else {
+            remetente.carteira.saldo = remetente.carteira.saldo - valor
+            destinatario.carteira.saldo = destinatario.carteira.saldo + valor
 
-            carteiraRemetente.saldo = carteiraRemetente.saldo - valor
-            carteiraDestinatario.saldo = carteiraDestinatario.saldo + valor
-            console.log(carteiraRemetente.saldo)
-            carteiraRemetente.operacao.push({
-                "descricao": descricao,
-                "tipo": 'transferencia',
-                "origem" : idRemetente,
-                "destino" : idDestinatario,
-                "valor": valor*-1,
-                "data": new Date()
-            })
+            const transacao = {
+                descricao,
+                tipo: 'transferencia',
+                origem,
+                destino,
+                valor,
+                data: new Date()
+            }
+            remetente.carteira.operacao.push(transacao)
 
-            carteiraDestinatario.operacao.push({
-                "descricao": descricao,
-                "tipo": 'recebimento',
-                "origem" : idRemetente,
-                "destino" : idDestinatario,
-                "valor": valor,
-                "data": new Date()
-            })
-            
-            await CarteiraModel.findByIdAndUpdate(idRemetente, remetente, { new: true })
-            await CarteiraModel.findByIdAndUpdate(idDestinatario, destinatario, { new: true })
+            transacao.tipo = 'recebimento'
+            destinatario.carteira.operacao.push(transacao)
 
-            const updatedRemetente = await CarteiraModel.findByIdAndUpdate(carteiraRemetente._id, carteiraRemetente, { new: true })
-            const updateDestinatário = await CarteiraModel.findByIdAndUpdate(carteiraDestinatario._id, carteiraDestinatario, { new: true })
+            const carteiraAtualizada = await CarteiraModel.findByIdAndUpdate(remetente.carteira._id, remetente.carteira.toJSON(), { new: true }).exec()
+            await CarteiraModel.findByIdAndUpdate(destinatario.carteira._id, destinatario.carteira.toJSON(), { new: true }).exec()
 
-            
-                res.status(200).json({ msg: "Transação realizada com sucesso!" })
-                return
-            
+            res.status(200).json({ response: { saldo: carteiraAtualizada.saldo, transacao }, msg: "Transação realizada com sucesso!" })
         }
     }
 }
