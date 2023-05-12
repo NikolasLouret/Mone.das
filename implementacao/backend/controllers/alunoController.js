@@ -18,7 +18,8 @@ const alunoController = {
                             {
                                 'nome': nome,
                                 'senha': senha,
-                                'email': email
+                                'email': email,
+                                'tipo': 'Aluno'
                             })
                     }).then(resp => { return resp.json() })
                         .then( async result => {

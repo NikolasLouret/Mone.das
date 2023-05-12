@@ -16,7 +16,8 @@ const EmpresaController = {
                     {
                         'nome': nome,
                         'senha': senha,
-                        'email': email
+                        'email': email,
+                        'tipo' : 'Empresa'
                     })
             })
             .then(resp => { return resp.json() })

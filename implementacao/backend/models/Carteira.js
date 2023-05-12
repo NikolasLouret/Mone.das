@@ -25,7 +25,7 @@ const carteiraSchema = new Schema(
                 required: true
             },
             data: {
-                type: String,
+                type: Date,
                 require: true
             }
         }]
