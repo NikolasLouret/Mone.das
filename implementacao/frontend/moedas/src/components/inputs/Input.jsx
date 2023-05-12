@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import './Input.css'
 
-const Input = ({ type, name, id, className, initialValue, onChange, label, required, disabled }) => {
+const Input = ({ type, name, id, className, initialValue, onChange, label, required, disabled, onKeyDown }) => {
     const [value, setValue] = useState("");
 
     const handleChange = ({ target }) => {
@@ -24,6 +24,7 @@ const Input = ({ type, name, id, className, initialValue, onChange, label, requi
                 name={ name }
                 required={ required && required }
                 disabled={ disabled && disabled }
+                onKeyDown={onKeyDown}
             />
         </div>
     )
