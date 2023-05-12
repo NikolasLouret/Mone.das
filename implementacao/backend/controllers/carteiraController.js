@@ -30,12 +30,15 @@ const carteiraController = {
     get: async (req, res) => {
         try {
             const id = req.params.id
-            const carteira = await CarteiraModel.findById(id)
+            const carteiraData = await CarteiraModel.findById(id)
 
-            if (!carteira) {
+            if (!carteiraData) {
                 res.status(404).json({ msg: "Carteira não encontrado!" })
                 return
             }
+
+            var carteira = await carteiraData.populate('operacao.origem'),
+                carteira = await carteiraData.populate('operacao.destino')
 
             res.status(201).json(carteira)
         } catch (error) {
@@ -92,7 +95,7 @@ const carteiraController = {
             const carteiraAtualizada = await CarteiraModel.findByIdAndUpdate(remetente.carteira._id, remetente.carteira.toJSON(), { new: true }).exec()
             await CarteiraModel.findByIdAndUpdate(destinatario.carteira._id, destinatario.carteira.toJSON(), { new: true }).exec()
 
-            res.status(200).json({ response: { saldo: carteiraAtualizada.saldo, transacao }, msg: "Transação realizada com sucesso!" })
+            res.status(200).json({ response: { remetente, destinatario, saldo: carteiraAtualizada.saldo, transacao }, msg: "Transação realizada com sucesso!" })
         }
     }
 }
