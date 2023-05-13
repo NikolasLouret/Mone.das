@@ -24,7 +24,7 @@ const userRouter = createBrowserRouter([
       { path: '/cadastrar', element: <Cadastro /> },
       { path: '/perfil', element: <Perfil /> },
       { path: '/professor', element: <EnviarMoedas />},
-      { path: `/${ _id }/extrato`, element: <Extrato />},
+      { path: '/extrato', element: <Extrato />},
     ]
   }
 ])
