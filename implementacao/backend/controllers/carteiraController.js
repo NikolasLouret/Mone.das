@@ -32,13 +32,17 @@ const carteiraController = {
             const id = req.params.id
             const carteiraData = await CarteiraModel.findById(id)
 
+            carteiraData.operacao.sort((date1, date2) => {
+                return date2.data - date1.data
+            })
+
             if (!carteiraData) {
                 res.status(404).json({ msg: "Carteira não encontrado!" })
                 return
             }
 
-            var carteira = await carteiraData.populate('operacao.origem'),
-                carteira = await carteiraData.populate('operacao.destino')
+            var carteira = await carteiraData.populate({ path: 'operacao.origem', select: 'nome email tipo' }),
+                carteira = await carteiraData.populate({ path: 'operacao.destino', select: 'nome email tipo' })
 
             res.status(201).json(carteira)
         } catch (error) {
