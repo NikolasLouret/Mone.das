@@ -49,6 +49,9 @@
   border-radius: 100%;
   z-index: -1;
 }
+.backdrop-filter {
+  backdrop-filter: blur(100px);
+}
 
 .opacity-50 {
   opacity: .5;
@@ -68,7 +71,7 @@
   background-color: rgba(122, 104, 38, 0.5);
 }
 .bg-green {
-  background-color: rgba(30, 218, 0, 0.5);
+  background-color: rgba(30, 218, 0, 0.4);
 }
 .bg-darkgray {
   background-color: #393C46;
