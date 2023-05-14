@@ -37,7 +37,7 @@ const EnviarMoedas = () => {
       setValor(event.target.value);
     }
 
-    function handleSubmit(e){
+    function enviarMoedas(e){
         e.preventDefault()
         var email = document.getElementById("inputMatricula").value;
         var moedas = document.getElementById("inputMoedas").value;
@@ -110,7 +110,7 @@ const EnviarMoedas = () => {
                 <Input type="text" className={styles.inputMensagem} name="Mensagem" label="Mensagem" id="inputMensagem"/>
             </div>
             <div className={styles.divButton}>
-                <Button type="submit" className="submit" id="btnEnviar" children="Enviar" onClick={handleSubmit}/>
+                <Button type="submit" className="submit" id="btnEnviar" children="Enviar" onClick={enviarMoedas}/>
             </div>
         </div>
         <div className={styles.rightScreen}>
