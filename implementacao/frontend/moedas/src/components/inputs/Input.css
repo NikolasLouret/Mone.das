@@ -25,9 +25,9 @@ div.input-component input {
     font-family: 'Poppins';
     font-size: 20px;
     font-weight: 600;
+    color: #FFF;
 }
 
 div.input-component input:disabled {
     color: #cfcfcf;
 }
-

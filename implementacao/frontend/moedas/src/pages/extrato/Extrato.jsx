@@ -16,7 +16,7 @@ const Extrato = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [user, setUser] = useState({
                                       nome: 'Nikolas Louret',
-                                      carteira: '645e786bdb12dd278bcef5cb',
+                                      carteira: '645e7836283a50729d368151',
                                       email: 'nikolas@email.com',
                                       tipo: 'aluno'
                                     })
