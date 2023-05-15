@@ -12,7 +12,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 //* Pages User
 import Cadastro from './pages/cadastro/Cadastro.jsx'
 import Perfil from './pages/perfil/Perfil.jsx'
-import EnviarMoedas from './pages/professor/EnviarMoedas.jsx'
+import EnviarMoedas from './pages/enviar-moedas/EnviarMoedas.jsx'
 import Extrato from './pages/extrato/Extrato.jsx'
 const _id = '123'
 
