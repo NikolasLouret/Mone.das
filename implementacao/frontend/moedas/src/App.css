@@ -4,6 +4,8 @@
   width: 100%;
   position: relative;
   min-height: 100vh;
+  background: #393C46;
+  color: #fff;
 }
 
 .logo {
