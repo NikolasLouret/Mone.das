@@ -39,7 +39,7 @@ const EmpresaController = {
     }},
     getAll: async (req, res) => {
         try {
-            const empresas = await EmpresaModel.find()
+            const empresas = await EmpresaModel.find().populate("pessoa")
 
             res.status(201).json(empresas)
         } catch (error) {
@@ -49,7 +49,7 @@ const EmpresaController = {
     get: async (req, res)=> {
         try {
             const id = req.params.id
-            const empresa = await EmpresaModel.findById(id)
+            const empresa = await EmpresaModel.findById(id).populate("pessoa")
 
             if(!empresa) {
                 res.status(404).json({ msg: "Empresa não encontrado!" })
