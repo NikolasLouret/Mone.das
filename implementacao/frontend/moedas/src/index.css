@@ -4,7 +4,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  color: #fff
+  list-style-type: none;
+  outline: none;
 }
 *:focus {
   outline: none;
@@ -14,7 +15,6 @@
 *:hover {
   outline: none;
   border: none;
-  background: none;
 }
 
 :root {
@@ -24,7 +24,7 @@
 
   color-scheme: light dark;
   color: #fff;
-  background: linear-gradient(50deg, rgba(40,42,51,1) 35%, rgba(99,101,111,1) 100%);
+  background: rgba(40,42,51,1);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;

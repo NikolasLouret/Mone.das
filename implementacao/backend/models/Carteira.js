@@ -18,10 +18,12 @@ const carteiraSchema = new Schema(
             },
             origem:{
                 type: Schema.Types.ObjectId,
+                ref: 'Pessoa',
                 required: true
             },
             destino:{
                 type: Schema.Types.ObjectId,
+                ref: 'Pessoa',
                 required: true
             },
             valor:{

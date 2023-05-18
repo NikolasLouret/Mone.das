@@ -68,6 +68,21 @@ const alunoController = {
             console.log(error)
         }
     },
+    getByEmail: async (req, res) => {
+        try {
+            const email = req.params.email
+            const aluno = await AlunoModel.findOne({email}).populate("pessoa").populate("instituicaoEnsino")
+
+            if (!aluno) {
+                res.status(404).json({ msg: "Usuário não encontrado!" })
+                return
+            }
+
+            res.status(201).json(aluno)
+        } catch (error) {
+            console.log(error)
+        }
+    },
     delete: async (req, res) => {
         try {
             const id = req.query.id

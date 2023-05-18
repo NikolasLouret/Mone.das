@@ -1,8 +1,9 @@
+import styles from './Select.module.css'
+
 import { useEffect, useState } from 'react'
-import './Select.css'
 
 const Select = ({ id, name, className, onChange, options, initialValue, label, required }) => {
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState('');
     const [optionsValues, setOptionsValues] = useState()
 
     const handleChange = ({ target }) => {
@@ -11,7 +12,7 @@ const Select = ({ id, name, className, onChange, options, initialValue, label, r
     }
 
     const optionIsAnObject = () => {
-        return options.some(optionElement => { return typeof optionElement == "object" })
+        return options.some(optionElement => { return typeof optionElement == 'object' })
     }
 
     useEffect(() => {
@@ -26,18 +27,19 @@ const Select = ({ id, name, className, onChange, options, initialValue, label, r
     }, [options, initialValue])
 
     return (
-        <div className="select-component">
+        <div className={ styles.selectComponent }>
             { label && <label htmlFor={ id }>{ label }</label> }
+
             <select
                 id={ id }
-                className={ className ? className : "" }
+                className={ className ? styles[className] : '' } 
                 onChange={ handleChange }
                 value={ value }
                 name={ name }
                 key={ value }
                 required={ required && required }
             >
-                <option value="0">Selecione uma opção</option>
+                <option value='0'>Selecione uma opção</option>
                 { optionsValues }
             </select>
         </div>

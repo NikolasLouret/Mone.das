@@ -42,6 +42,15 @@
     margin-bottom: 20px;
 }
 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.inputMensagem {
+    color: #A1A1A1;
+}
+
 .inputInformations {
     display: flex;
     flex-direction: column;
