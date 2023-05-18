@@ -16,7 +16,7 @@ const vantagemSchema = new Schema(
             required: true
         },
         foto: {
-            type: Blob,
+            type: String,
             required: true
         },
     },
