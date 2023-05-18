@@ -2,23 +2,35 @@ const { Vantagem: VantagemModel } = require("../models/Vantagem")
 
 
 const VantagemController = {
-    create: async (req, res) => {
-        const {nome, descricao, preco, foto} = req.body
-        try {
+  create: async (req, res) => {
+      const { nome, descricao, preco } = req.body;
+      const foto = req.files && req.files.foto; 
+    
+      if (!foto) {
+        return res.status(400).json({ error: "Nenhuma imagem encontrada" });
+      }
+    
+      try {
+        const fileName = `foto_${Date.now()}_${foto.name}`;
 
-            const vantagem = {
-            nome, 
-            descricao, 
-            preco,
-            foto   
-            }
+        const vantagem = {
+          nome,
+          descricao,
+          preco,
+          foto: fileName, 
+        };
+    
+        foto.mv(`./files/${fileName}`, (error) => {
+          if (error) {
+            return res.status(500).json({ error: "Erro ao salvar a imagem" });
+          }
+        });
 
-            const response = await VantagemModel.create(vantagem);
+        const response = await VantagemModel.create(vantagem);
 
-            res.status(201).json({ response, msg: "Vantagem cadastrado com sucesso!" })
-        } catch (error) {
-            console.log(error)
-        }
+      } catch (error) {
+        res.status(500).json({ error: "Erro ao cadastrar a vantagem" });
+      }
     },
     getAll: async (req, res) => {
         try {
