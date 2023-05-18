@@ -1,6 +1,8 @@
 const { Empresa: EmpresaModel } = require("../models/Empresa")
 const { Pessoa: PessoaModel } = require("../models/Pessoa")
 const fetch = require("node-fetch");
+const {Vantagem : VantagemModel} = require("../models/Vantagem");
+const { response } = require("express");
 
 const EmpresaController = {
     create: async (req, res) => {
@@ -108,6 +110,31 @@ const EmpresaController = {
         } catch (error) {
             console.log(error)
         }
+    },
+    addVantagem : async (req, res)=>{
+        try {
+            const {vantagem} = req.body
+            const id = req.params.id
+            let novaVanatgem
+            const empresa = await EmpresaModel.findById(id)
+            if(!empresa || !empresa) {
+                res.status(404).json({ msg: "Empresa não encontrada!" })
+                return
+            }
+            try {
+                novaVanatgem = await VantagemModel.create(vantagem)
+            } catch (error) {
+                res.status(404).json({ msg: "Verifique se os dados estão corretos!" })
+                return
+            }
+            
+           empresa.vantagens.push(novaVanatgem._id)
+           let response = await EmpresaModel.findByIdAndUpdate(id, empresa)
+            res.status(200).json({response, msg: "Vantagem cadastrada com sucesso!" })
+        } catch (error) {
+            console.log(error)
+        }
+       
     }
 }
 

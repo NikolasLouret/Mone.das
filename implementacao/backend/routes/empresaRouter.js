@@ -16,5 +16,8 @@ router.route("/empresa").delete((req, res) => EmpresaController.delete(req, res)
 // UPDATE empresa
 router.route("/empresa").put((req, res) => EmpresaController.update(req, res))
 
+// CREATE VANTAGEM empresa
+router.route("/empresa/vantagem/:id").put((req, res) => EmpresaController.addVantagem(req, res))
+
 
 module.exports = router;
