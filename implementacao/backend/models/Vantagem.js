@@ -19,6 +19,10 @@ const vantagemSchema = new Schema(
             type: String,
             required: true
         },
+        empresa: {
+            type: Schema.Types.ObjectId,
+            ref: 'Empresa'
+        }
     },
     { timestemps: true }
 )
