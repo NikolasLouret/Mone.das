@@ -100,6 +100,9 @@ function CadastroDeVantagens() {
           </div>
         </form>
       </div>
+      <div className={styles.rightScreen}>
+        <img src='/cart.png' alt='' className={styles.cart}/>
+      </div>
       <Snackbar open={openMessage} autoHideDuration={2000} onClose={handleClose}>
           <Alert onClose={handleClose} severity='success' sx={{ width: '100%' }}>
               Vantagem cadastrada com sucesso!
@@ -110,9 +113,6 @@ function CadastroDeVantagens() {
               Preencha todos os campos!
           </Alert>
       </Snackbar>
-      <div className={styles.rightScreen}>
-        <img src='/cart.png' alt='' className={styles.cart}/>
-      </div>
     </div>
 
   );
