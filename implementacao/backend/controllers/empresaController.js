@@ -115,8 +115,8 @@ const EmpresaController = {
         try {
             const {vantagem} = req.body
             const id = req.params.id
-            let novaVanatgem
             const empresa = await EmpresaModel.findById(id)
+            let novaVanatgem = vantagem.empresa=empresa
             if(!empresa || !empresa) {
                 res.status(404).json({ msg: "Empresa não encontrada!" })
                 return
@@ -129,7 +129,8 @@ const EmpresaController = {
             }
             
            empresa.vantagens.push(novaVanatgem._id)
-           let response = await EmpresaModel.findByIdAndUpdate(id, empresa)
+           
+           let response = await EmpresaModel.findByIdAndUpdate(id, { vantagens: empresa.vantagens }, { new: true })
             res.status(200).json({response, msg: "Vantagem cadastrada com sucesso!" })
         } catch (error) {
             console.log(error)

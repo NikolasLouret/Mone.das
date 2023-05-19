@@ -1,9 +1,10 @@
-const { Vantagem: VantagemModel } = require("../models/Vantagem")
+const { Vantagem: VantagemModel } = require("../models/Vantagem");
+const EmpresaController = require("./empresaController");
 
 
 const VantagemController = {
   create: async (req, res) => {
-      const { nome, descricao, preco } = req.body;
+      const { nome, descricao, preco, empresa } = req.body;
       const foto = req.files && req.files.foto; 
     
       if (!foto) {
@@ -11,12 +12,14 @@ const VantagemController = {
       }
     
       try {
+        
         const fileName = `foto_${Date.now()}_${foto.name}`;
 
         const vantagem = {
           nome,
           descricao,
           preco,
+          empresa,
           foto: fileName, 
         };
     
