@@ -1,0 +1,40 @@
+div.card {
+    background-color: #404249;
+    padding: 0 1.5rem 3rem;
+    width: 23rem;
+    height: 30rem;
+    border-radius: 1rem;
+    position: relative;
+}
+div.card:hover {
+    
+}
+
+div.content {
+    position: absolute;
+    bottom: 1rem;
+    row-gap: .5rem;
+}
+
+p.description {
+    font-size: .9rem;
+    color: #A1A1A1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden; 
+    max-width: 20rem;
+}
+
+div.value span {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+span.empresa {
+    position: absolute;
+    bottom: 1rem;
+    right: 1.5rem;
+    font-size: .8rem;
+    color: #A1A1A1;
+    font-weight: 500;
+}
