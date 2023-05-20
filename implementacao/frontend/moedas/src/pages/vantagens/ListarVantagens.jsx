@@ -66,7 +66,6 @@ const ListarVantagens = () => {
     }
 
     const filter = (arr, searchValue, value) => {
-        console.log(arr);
         if(searchValue)
             arr = arr.filter(elem => elem.nome
                 .toLowerCase()
@@ -116,7 +115,7 @@ const ListarVantagens = () => {
                             />
                         </div>
 
-                        <section className='cards flex flex-wrap column-gap-3rem row-gap-3rem'>
+                        <section className='cards flex flex-wrap column-gap-3rem row-gap-3rem justify-center'>
                             { filter(vantagens, searchValue, value)
                                 .map(vantagem => <CardVantagem content={ vantagem } onClick={ handleOnClick } />)
                             }

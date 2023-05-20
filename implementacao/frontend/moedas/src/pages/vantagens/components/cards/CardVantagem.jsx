@@ -6,7 +6,7 @@ const CardVantagem = ({ content, onClick }) => {
   
   return (
     <div className={ styles.card } onClick={ () => onClick(content._id) } id={ content._id }>
-      <img src={ '/backend/files/' + content.foto } alt={ content.nome } />
+      <img className={ styles.image } src={ 'http://localhost:3000/files/' + content.foto } alt={ content.nome } />
 
       <div className={ styles.content + ' flex flex-column' }>
         <h3 className={ styles.name }>{ content.nome }</h3>
