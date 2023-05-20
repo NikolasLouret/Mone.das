@@ -17,4 +17,6 @@ router.route("/pessoa").delete((req, res) => pessoaController.delete(req, res))
 router.route("/pessoa").put((req, res) => pessoaController.update(req, res))
 
 
+
+
 module.exports = router;
