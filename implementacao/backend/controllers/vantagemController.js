@@ -37,9 +37,15 @@ const VantagemController = {
     },
     getAll: async (req, res) => {
         try {
-            const Vantagem = await VantagemModel.find()
+            const vantagens = await VantagemModel
+                .find({})
+                .populate({
+                    path: 'empresa',
+                    select: 'pessoa',
+                    populate: { path: 'pessoa', select: 'nome' }
+                })
 
-            res.status(201).json(Vantagem)
+            res.status(201).json(vantagens)
         } catch (error) {
             console.log(error)
         }

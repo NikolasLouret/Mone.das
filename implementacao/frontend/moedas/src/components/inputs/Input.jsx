@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
-import './Input.css'
 
-const Input = ({ type, name, id, className, initialValue, onChange, label, required, disabled, onKeyDown }) => {
+import styles from './Input.module.css'
+
+const Input = ({ type, name, id, className, initialValue, onChange, label, required, disabled, onKeyDown, placeholder }) => {
     const [value, setValue] = useState("");
 
     const handleChange = ({ target }) => {
@@ -14,14 +15,16 @@ const Input = ({ type, name, id, className, initialValue, onChange, label, requi
     }, [initialValue])
 
     return (
-        <div className="input-component">
+        <div className={ styles.input }>
             { label && <label htmlFor={ id }>{ label }</label> }
+            
             <input type={ type }
                 id={ id }
                 className={ className ? className : "" }
                 onChange={ handleChange }
                 value={ value }
                 name={ name }
+                placeholder={ placeholder && placeholder }
                 required={ required && required }
                 disabled={ disabled && disabled }
                 onKeyDown={onKeyDown}
