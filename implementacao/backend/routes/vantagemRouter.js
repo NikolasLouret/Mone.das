@@ -5,7 +5,7 @@ const vantagemController = require("../controllers/vantagemController")
 router.route("/vantagem").post((req, res) => vantagemController.create(req, res))
 
 // GET ALL vantagem
-router.route("/vantagem").get((req, res) => vantagemController.getAll(req, res))
+router.route("/vantagens").get((req, res) => vantagemController.getAll(req, res))
 
 // GET vantagem
 router.route("/vantagem/:id").get((req, res) => vantagemController.get(req, res))
