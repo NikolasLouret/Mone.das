@@ -18,7 +18,7 @@ function CadastroDeVantagens() {
   const [openMessage, setOpenMessage] = useState(false)
   const [openErrorMessage, setOpenErrorMessage] = useState(false)
 
-  const handleSubmit = async (e) => {
+  const cadastrarVantagem = async (e) => {
     e.preventDefault();
 
     var nome = document.getElementById('inputVantagem').value;
