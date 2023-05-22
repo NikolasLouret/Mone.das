@@ -24,7 +24,7 @@ const DetalhesCard = ({ transaction }) => {
                 </div>
 
                 <div className={ styles.infoType }>
-                    <p className={ styles.type }>{ transaction.tipo === 'transferencia' ? 'Transaferencia' : 'Recebiento' }</p>
+                    <p className={ styles.type }>{ transaction.tipo === 'transferencia' ? 'Transaferência' : 'Recebiento' }</p>
                     <p className={ styles.value }>{ transaction.tipo === 'transferencia' ? '-' : '+'} { transaction.valor }</p>
                 </div>
             </div>

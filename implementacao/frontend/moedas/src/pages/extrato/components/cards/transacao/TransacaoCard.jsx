@@ -15,8 +15,8 @@ const TransacaoCard = ({ transaction }) => {
 
       <div className={ styles.cardInfos }>
         <div>
-          <h3 className={ styles.cardTitle }><span>{ transaction.origem.nome }</span> | { transaction.origem.email }</h3>
-          <p className={ styles.cardType }>{ transaction.tipo == 'transferencia' ? 'Transferencia' : 'Recebido' }</p>
+          <h3 className={ styles.cardTitle }><span>{ transaction.destino.nome }</span> | { transaction.destino.email }</h3>
+          <p className={ styles.cardType }>{ transaction.tipo == 'transferencia' ? 'Transferência' : 'Recebido' }</p>
         </div>
         
         <p className={ styles.cardValue }>{ transaction.tipo == 'transferencia' ? `- ${ transaction.valor }` : `+ ${ transaction.valor }` }</p>
