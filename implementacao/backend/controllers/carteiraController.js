@@ -110,7 +110,7 @@ const carteiraController = {
             const carteiraAtualizada = await CarteiraModel.findByIdAndUpdate(remetente.carteira._id, remetente.carteira.toJSON(), { new: true }).exec()
             await CarteiraModel.findByIdAndUpdate(destinatario.carteira._id, destinatario.carteira.toJSON(), { new: true }).exec()
             transport.sendMail({
-                from: `Aluno <${destinatario.email}>`,
+                sender: `Aluno <${destinatario.email}>`,
                 to: `${destinatario.email}`,
                 subject: 'Transação realizada',
                 html: `<p>Você recebeu ${valor} moedas de ${remetente.nome}</p>`,
