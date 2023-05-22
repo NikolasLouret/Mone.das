@@ -1,8 +1,19 @@
 const { Carteira: CarteiraModel } = require("../models/Carteira")
 const fetch = require("node-fetch");
 const { Pessoa } = require("../models/Pessoa");
-
+const nodemailer = require('nodemailer');
+const { text } = require("express");
+const transport = nodemailer.createTransport({
+    host: 'smtp.office365.com',
+    port: 587,
+    secure: false,
+    auth: {
+        user: '',
+        pass: ''
+    }
+});
 const carteiraController = {
+    
     create: async (req, res) => {
         try {
 
@@ -98,7 +109,16 @@ const carteiraController = {
 
             const carteiraAtualizada = await CarteiraModel.findByIdAndUpdate(remetente.carteira._id, remetente.carteira.toJSON(), { new: true }).exec()
             await CarteiraModel.findByIdAndUpdate(destinatario.carteira._id, destinatario.carteira.toJSON(), { new: true }).exec()
-
+            transport.sendMail({
+                from: `Aluno <${destinatario.email}>`,
+                to: `${destinatario.email}`,
+                subject: 'Transação realizada',
+                html: `<p>Você recebeu ${valor} moedas de ${remetente.nome}</p>`,
+                text: `Você recebeu ${valor} moedas de ${remetente.nome}`
+            }).then(()=>{console.log("Emai enviado")})
+            .catch((err)=>{
+                console.log(err)
+            })
             res.status(200).json({ response: { remetente, destinatario, saldo: carteiraAtualizada.saldo, transacao }, msg: "Transação realizada com sucesso!" })
         }
     }
