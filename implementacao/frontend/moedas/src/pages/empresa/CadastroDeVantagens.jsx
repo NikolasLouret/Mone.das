@@ -9,14 +9,20 @@ import styles from './CadastroDeVantagens.module.css'
 import Snackbar from '@mui/material/Snackbar'
 import MuiAlert from '@mui/material/Alert'
 
+import { useNavigate } from 'react-router-dom';
+
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />
 })
+
+const empresa = '6467a4571ec6e7f3934ccabd'
  
 
 function CadastroDeVantagens() {
   const [openMessage, setOpenMessage] = useState(false)
   const [openErrorMessage, setOpenErrorMessage] = useState(false)
+
+  const navigate = useNavigate()
 
   const cadastrarVantagem = async (e) => {
     e.preventDefault();
@@ -28,6 +34,7 @@ function CadastroDeVantagens() {
 
     if(!nome || !descricao || !preco || !foto){
       setOpenErrorMessage(true)
+      console.log("fodase");
       return
     }
 
@@ -36,12 +43,17 @@ function CadastroDeVantagens() {
     formData.append('descricao', descricao);
     formData.append('preco', preco);
     formData.append('foto', foto);
+    formData.append('empresa', empresa);
 
     try {
       const response = await fetch('http://localhost:3000/api/vantagem', {
         method: 'POST',
         body: formData,
-      }).then(setOpenMessage(true)).catch(err => console.log(err));
+      }).then(setOpenMessage(true))
+      .then(
+        setTimeout(() => navigate('/vantagens'), 1000)
+      )
+      .catch(err => console.log(err));
     } catch (error) {
       console.error('Erro de rede:', error);
     }
@@ -74,20 +86,20 @@ function CadastroDeVantagens() {
         <div>
           <p className={styles.subtitle}>Cadastrar vantagens possibilita que os alunos de escolas e universidades comprem</p>
         </div>
-        <form onSubmit={handleSubmit} encType="multipart/form-data">
+        <form onSubmit={cadastrarVantagem} encType="multipart/form-data">
           <div className={styles.inputParent}>
             <div className={styles.input}>
-              <Input type='text' name='inputVantagem' label='Nome da vantagem' id='inputVantagem'/> 
+              <Input type='text' name='inputVantagem' label='Nome da vantagem' id='inputVantagem' required/> 
             </div>
           </div>
           <div className={styles.inputParent}>
             <div className={styles.input}>
-              <Input type='number' name='inputValor' label='Valor em moedas' id='inputValor' onKeyDown={handleKeyDown} />
+              <Input type='number' name='inputValor' label='Valor em moedas' id='inputValor' onKeyDown={handleKeyDown} required/>
             </div>
           </div>
           <div className={styles.inputParent}>
             <div className={styles.input}>
-              <Input type='text' name='inputDesc' label='Descrição' id='inputDesc'/>
+              <Input type='text' name='inputDesc' label='Descrição' id='inputDesc' required/>
             </div>
           </div>
           <div className={styles.inputParent}>
@@ -96,7 +108,7 @@ function CadastroDeVantagens() {
             </div>
           </div>
           <div className={styles.divButton}>
-              <Button type='submit' className='submit' id='btnEnviar' children='Enviar' onClick={handleSubmit}/>
+              <Button type='submit' className='submit' id='btnEnviar' children='Enviar' />
           </div>
         </form>
       </div>

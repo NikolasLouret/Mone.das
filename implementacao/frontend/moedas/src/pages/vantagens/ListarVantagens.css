@@ -22,7 +22,11 @@ div.filter-cards {
 }
 
 div.filter-cards > span {
+    margin-top: 1rem;
     color: #A1A1A1;
     font-weight: 400;
 }
 
+section.content {
+    max-width: 75rem;
+}
