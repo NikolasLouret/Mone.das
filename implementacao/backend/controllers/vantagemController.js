@@ -53,7 +53,11 @@ const VantagemController = {
     get: async (req, res)=> {
         try {
             const id = req.params.id
-            const vantagem = await VantagemModel.findById(id)
+            const vantagem = await VantagemModel.findById(id).populate({
+                path: 'empresa',
+                select: 'pessoa',
+                populate: { path: 'pessoa', select: 'nome' }
+            })
 
             if(!vantagem) {
                 res.status(404).json({ msg: "Vantagem não encontrado!" })

@@ -5,9 +5,12 @@ div.card {
     height: 30rem;
     border-radius: 1rem;
     position: relative;
+    transition: 0.5s;
 }
-div.card:hover {
 
+div.card:hover {
+    cursor: pointer;
+    transform: scale(1.05);
 }
 
 div.content {

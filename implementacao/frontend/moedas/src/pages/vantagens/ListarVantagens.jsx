@@ -62,7 +62,7 @@ const ListarVantagens = () => {
     }
 
     const handleOnClick = _id => {
-        navigate('/troca-vantagem/' + _id, { _id })
+        navigate('/trocarVantagem/' + _id, { _id })
     }
 
     const filter = (arr, searchValue, value) => {

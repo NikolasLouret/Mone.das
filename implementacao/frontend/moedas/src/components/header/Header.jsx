@@ -13,7 +13,7 @@ const Header = () => {
             <ul className="list-itens">
                 <div className="section-1">
                     <li>
-                        <Link to="/"><img className="logo" src="public/logo_v1.svg" alt="mone.das" /></Link>
+                        <Link to="/"><img className="logo" src="/logo_v1.svg" alt="mone.das" /></Link>
                     </li>
 
                     { currentUser && 
