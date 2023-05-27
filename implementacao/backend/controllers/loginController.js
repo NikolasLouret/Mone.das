@@ -1,29 +1,26 @@
-const { Pessoa: PessoaModel } = require("../models/Pessoa")
+const { Pessoa: PessoaModel } = require("../models/Pessoa");
 
+const loginController = {
+  login: async (req, res) => {
+    try {
+      const { email, senha } = req.body;
+      const user = await PessoaModel.findOne({ email: email });
 
-loginController = {
+      if (!user) {
+        res.status(404).json({ msg: "Usuário não encontrado!" });
+        return;
+      }
 
-    login: async (req, res)=>{
+      if (senha !== user.senha) {
+        res.status(401).json({ msg: "Senha inválida" });
+        return;
+      }
 
-            let {email, senha} = req.body
-            let pessoaVerificar
-            console.log(email)
-            try{
-                pessoaVerificar = await PessoaModel.findOne({email: email})
-            }catch(err){
-                console.log(err)
-            }
-            console.log(senha)
-           console.log(pessoaVerificar)
-            if(pessoaVerificar.senha == senha){
-                res.status(201).json(pessoaVerificar)
-            }else{
-                res.status(404).json({msg: `Senha inválida`})
-            }
-
-
-        
+      res.status(201).json({ status: 201, user });
+    } catch (error) {
+      console.log(error);
     }
-}
+  },
+};
 
-module.exports = loginController
+module.exports = loginController;
