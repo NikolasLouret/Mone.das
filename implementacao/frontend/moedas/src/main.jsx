@@ -16,6 +16,7 @@ import EnviarMoedas from './pages/enviar-moedas/EnviarMoedas.jsx'
 import Extrato from './pages/extrato/Extrato.jsx'
 import CadastroDeVantagens from './pages/empresa/CadastroDeVantagens.jsx'
 import ListarVantagens from './pages/vantagens/ListarVantagens.jsx'
+import TrocarVantagem from './pages/vantagens/TrocarVantagem.jsx'
 
 const userRouter = createBrowserRouter([
   {
@@ -28,6 +29,7 @@ const userRouter = createBrowserRouter([
       { path: '/extrato', element: <Extrato />},
       {path: '/cadastroVantagens', element: <CadastroDeVantagens />},
       {path: '/vantagens', element: <ListarVantagens />},
+      {path: '/trocarVantagem/:id', element: <TrocarVantagem />}
     ]
   }
 ])

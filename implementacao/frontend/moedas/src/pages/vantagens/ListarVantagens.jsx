@@ -62,7 +62,7 @@ const ListarVantagens = () => {
     }
 
     const handleOnClick = _id => {
-        navigate('/troca-vantagem/' + _id, { _id })
+        navigate('/trocarVantagem/' + _id, { _id })
     }
 
     const filter = (arr, searchValue, value) => {
@@ -83,7 +83,7 @@ const ListarVantagens = () => {
     }
 
     return (
-        <div className='body-listar-vantagem'>
+        <div className='body-listar-vantagem flex flex-column align-center'>
             <section className="title-section flex space-between column-gap-3rem align-center">
                 <div className="section-1 flex flex-column row-gap-1rem">
                     <h1 className="title">Troque por vantagens<span>.</span></h1>
@@ -115,7 +115,7 @@ const ListarVantagens = () => {
                             />
                         </div>
 
-                        <section className='cards flex flex-wrap column-gap-3rem row-gap-3rem justify-center'>
+                        <section className='cards flex flex-wrap column-gap-3rem row-gap-3rem'>
                             { filter(vantagens, searchValue, value)
                                 .map(vantagem => <CardVantagem content={ vantagem } onClick={ handleOnClick } />)
                             }
