@@ -116,11 +116,22 @@ const carteiraController = {
             const carteiraAtualizada = await CarteiraModel.findByIdAndUpdate(remetente.carteira._id, remetente.carteira.toJSON(), { new: true }).exec()
             await CarteiraModel.findByIdAndUpdate(destinatario.carteira._id, destinatario.carteira.toJSON(), { new: true }).exec()
             transport.sendMail({
-                sender: `Aluno <${destinatario.email}>`,
+                sender: `<${destinatario.email}>`,
                 to: `${destinatario.email}`,
                 subject: 'Transação realizada',
-                html: `<p>Você recebeu ${valor} moedas de ${remetente.nome}</p>`,
-                text: `Você recebeu ${valor} moedas de ${remetente.nome}`
+                html: `<p>Você recebeu ${valor} moedas de ${remetente.nome} </br> Código: ${idIncremente}</p>`,
+                text: `Você recebeu ${valor} moedas de ${remetente.nome} </br> Código: ${idIncremente}`
+            }).then(()=>{console.log("Emai enviado")})
+            .catch((err)=>{
+                console.log(err)
+            })
+
+            transport.sendMail({
+                sender: `<${remetente.email}>`,
+                to: `${remetente.email}`,
+                subject: 'Transação realizada',
+                html: `<p>Você recebeu ${valor} moedas de ${destinatario.nome} </br> Código: ${idIncremente}</p>`,
+                text: `Você recebeu ${valor} moedas de ${destinatario.nome} </br> Código: ${idIncremente}`
             }).then(()=>{console.log("Emai enviado")})
             .catch((err)=>{
                 console.log(err)
