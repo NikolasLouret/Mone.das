@@ -8,6 +8,11 @@ const carteiraSchema = new Schema(
             required: true
         },
         operacao: [{
+
+            codigoOperacao:{
+                type: String,
+                required: true
+            },
             descricao:{
                 type: String,
                 required: true
