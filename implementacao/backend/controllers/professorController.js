@@ -71,10 +71,10 @@ const professorController = {
       console.log(error);
     }
   },
-  getByEmail: async (req, res) => {
+  getByIdPessoa: async (req, res) => {
     try {
-      const email = req.params.email;
-      let professor = await ProfessorModel.findOne({ email });
+      const id = req.params.id;
+      let professor = await ProfessorModel.findOne({ pessoa: id });
 
       if (!professor) {
         res.status(404).json({ msg: "Usuário não encontrado!" });

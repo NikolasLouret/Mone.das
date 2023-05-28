@@ -81,10 +81,10 @@ const alunoController = {
       console.log(error);
     }
   },
-  getByEmail: async (req, res) => {
+  getByIdPessoa: async (req, res) => {
     try {
-      const email = req.params.email;
-      let aluno = await AlunoModel.findOne({ email });
+      const id = req.params.id;
+      let aluno = await AlunoModel.findOne({ pessoa: id });
 
       if (!aluno) {
         res.status(404).json({ msg: "Usuário não encontrado!" });

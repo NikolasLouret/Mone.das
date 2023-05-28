@@ -16,10 +16,10 @@ router
   .route("/professor/:id")
   .get((req, res) => professorController.get(req, res));
 
-// GET Professor by Email
+// GET Professor by ID Pessoa
 router
-  .route("/professor/email/:email")
-  .get((req, res) => professorController.getByEmail(req, res));
+  .route("/professor/pessoa/:id")
+  .get((req, res) => professorController.getByIdPessoa(req, res));
 
 // DELETE Professor
 router

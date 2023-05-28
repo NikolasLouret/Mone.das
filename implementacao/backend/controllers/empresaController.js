@@ -65,10 +65,10 @@ const EmpresaController = {
       console.log(error);
     }
   },
-  getByEmail: async (req, res) => {
+  getByIdPessoa: async (req, res) => {
     try {
-      const email = req.params.email;
-      let empresa = await EmpresaModel.findOne({ email });
+      const id = req.params.id;
+      let empresa = await EmpresaModel.findOne({ pessoa: id });
 
       if (!empresa) {
         res.status(404).json({ msg: "Usuário não encontrado!" });

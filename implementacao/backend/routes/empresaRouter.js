@@ -10,10 +10,10 @@ router.route("/empresa").get((req, res) => EmpresaController.getAll(req, res));
 // GET Empresa
 router.route("/empresa/:id").get((req, res) => EmpresaController.get(req, res));
 
-// GET Empresa by Email
+// GET Empresa by Id Pessoa
 router
-  .route("/empresa/email/:email")
-  .get((req, res) => EmpresaController.getByEmail(req, res));
+  .route("/empresa/pessoa/:id")
+  .get((req, res) => EmpresaController.getByIdPessoa(req, res));
 
 // DELETE Empresa
 router

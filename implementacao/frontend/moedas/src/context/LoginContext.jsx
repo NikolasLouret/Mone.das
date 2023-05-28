@@ -12,11 +12,12 @@ export const LoginProvider = ({ children }) => {
 
   useEffect(() => {
     const recoveredUser = JSON.parse(localStorage.getItem("userLAB"));
+    console.log(recoveredUser);
 
     if (recoveredUser) {
       fetch(
-        `${url}/api/${recoveredUser.tipo.toLowerCase()}/email/${
-          recoveredUser.email
+        `${url}/api/${recoveredUser.tipo.toLowerCase()}/pessoa/${
+          recoveredUser._id
         }`,
         {
           method: "GET",

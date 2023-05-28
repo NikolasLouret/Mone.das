@@ -10,10 +10,10 @@ router.route("/aluno").get((req, res) => alunoController.getAll(req, res));
 // GET aluno
 router.route("/aluno/:id").get((req, res) => alunoController.get(req, res));
 
-// GET aluno by Email
+// GET aluno by ID Pessoa
 router
-  .route("/aluno/email/:email")
-  .get((req, res) => alunoController.getByEmail(req, res));
+  .route("/aluno/pessoa/:id")
+  .get((req, res) => alunoController.getByIdPessoa(req, res));
 
 // DELETE aluno
 router.route("/aluno").delete((req, res) => alunoController.delete(req, res));
