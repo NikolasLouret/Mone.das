@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import "./Form.css";
 
 // eslint-disable-next-line react/prop-types
 const Form = ({ onSubmit, children }) => {
@@ -11,7 +10,11 @@ const Form = ({ onSubmit, children }) => {
   };
 
   return (
-    <form ref={form} className="form-component" onSubmit={handleSubmit}>
+    <form
+      ref={form}
+      className="form-component flex flex-column row-gap-3rem"
+      onSubmit={handleSubmit}
+    >
       {children}
     </form>
   );

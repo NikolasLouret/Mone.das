@@ -60,7 +60,7 @@ export const LoginProvider = ({ children }) => {
       const user = data.user;
       localStorage.setItem("userLAB", JSON.stringify(user));
 
-      await fetch(`${url}/api/${user.tipo.toLowerCase()}/email/${user.email}`, {
+      await fetch(`${url}/api/${user.tipo.toLowerCase()}/pessoa/${user._id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

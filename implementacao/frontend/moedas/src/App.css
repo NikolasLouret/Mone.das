@@ -46,11 +46,17 @@
 .row-gap-1rem {
   row-gap: 1rem;
 }
+.row-gap-2rem {
+  row-gap: 2rem;
+}
 .row-gap-3rem {
   row-gap: 3rem;
 }
 .row-gap-5rem {
   row-gap: 5em;
+}
+.row-gap-10rem {
+  row-gap: 10em;
 }
 
 .absolute {
