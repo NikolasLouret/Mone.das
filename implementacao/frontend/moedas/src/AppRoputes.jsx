@@ -109,7 +109,7 @@ const AppRoutes = () => {
             exact
             path="/trocarVantagem/:id"
             element={
-              <Private permission="Aluno">
+              <Private permission="Aluno Empresa">
                 <TrocarVantagem />
               </Private>
             }
