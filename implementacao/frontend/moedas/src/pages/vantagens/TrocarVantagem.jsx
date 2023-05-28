@@ -23,9 +23,10 @@ const TrocarVantagem = () => {
         },
     }).then(resp => { return resp.json() })
     .then(data => {
-        setVantagens(data)
+        const filteredVantagens = data.filter(vantagem => vantagem._id !== id);
+        setVantagens(filteredVantagens)
     })
-  }, [])
+  }, [id])
 
   useEffect(() => {
     fetch(`http://localhost:3000/api/vantagem/${id}`, {
@@ -80,14 +81,16 @@ const TrocarVantagem = () => {
           </div>
         </div>
       </div>
-      <div className={styles.outrasVantagens}>
-        <h3>Outras vantagens<span className={styles.ponto}>.</span></h3>
-        <div className={styles.cards}>
-          {vantagens.map(vantagem => 
-            <CardVantagem content={vantagem} onClick={handleCardClick} className={styles.card} key={vantagem._id}/>
-          )}
+      {vantagens.length > 1 &&
+        <div className={styles.outrasVantagens}>
+          <h3>Outras vantagens<span className={styles.ponto}>.</span></h3>
+          <div className={styles.cards}>
+            {vantagens.map(vantagem => 
+              <CardVantagem content={vantagem} onClick={handleCardClick} className={styles.card} key={vantagem._id}/>
+            )}
+          </div>
         </div>
-      </div>
+      }
     </div>
   )
 }
