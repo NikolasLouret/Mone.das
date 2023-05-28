@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect} from 'react'
 import styles from './EnviarMoedas.module.css'
 import Input from '../../components/inputs/Input'
 import Button from '../../components/buttons/Button'
@@ -24,6 +24,7 @@ const EnviarMoedas = () => {
     const [openMessage, setOpenMessage] = useState(false)
     const [openErrorMessage, setOpenErrorMessage] = useState(false)
     const [openCoinErrorMessage , setCoinErrorMessage] = useState(false)
+    const [validEmail, setValidEmail] = useState(false)
     const { user } = useContext(LoginContext)
 
     useEffect(() => {
@@ -46,9 +47,10 @@ const EnviarMoedas = () => {
         .then(data => {
           if (data && data.pessoa) {
             setAluno(data);
-            console.log(data)
+            setValidEmail(true)
           } else {
-            setAluno({});
+            setAluno({})
+            setValidEmail(false)
           }
         });
     }
@@ -83,10 +85,6 @@ const EnviarMoedas = () => {
         setValor(0) 
       }
     }
-
-    function handleChange(event) {
-      setMoedas(event.target.value)
-    }
     
     function enviarMoedas(e){
         e.preventDefault()
@@ -94,9 +92,14 @@ const EnviarMoedas = () => {
         var moedas = document.getElementById('inputMoedas').value
         var mensagem = document.getElementById('inputMensagem').value
 
-        if(!email || !moedas || !mensagem){
+        if(!email || !moedas || !mensagem || !validEmail){
           setOpenErrorMessage(true)
           return
+        }
+
+        if (!aluno || !aluno.pessoa || !aluno.pessoa._id) {
+          setOpenErrorMessage(true);
+          return;
         }
 
         fetch(`http://localhost:3000/api/carteira/transacao`, {
@@ -113,6 +116,7 @@ const EnviarMoedas = () => {
         })
         .then(resp => resp.json())
         .then(setOpenMessage(true))
+        .then(setValidEmail(false))
         .catch(err => console.error(err))
 
     }
@@ -139,11 +143,11 @@ const EnviarMoedas = () => {
             {openCoinErrorMessage && <div className={styles.pCoinMessage}><p><BiErrorCircle className={styles.iconError}/> Digite um valor menor que o seu saldo atual</p></div>}
             <div className={styles.inputParent}>
                 <div className={styles.input}>
-                    <Input type='number' name='Moedas' label='Moedas' id='inputMoedas' onChange={handleChange} onKeyDown={handleKeyDown} min='1' onBlur={coinValidation} />
+                    <Input type='number' name='Moedas' label='Moedas' id='inputMoedas' onKeyDown={handleKeyDown} min='1' onBlur={coinValidation} />
                 </div>
                 <div className={styles.inputInformations}>          
                     <p>Saldo atual: {user && user.pessoa && user.pessoa.carteira ? user.pessoa.carteira.saldo : ''}</p>
-                    <p>Saldo final: {user && user.pessoa && user.pessoa.carteira && moedas ? isNaN(user.pessoa.carteira.saldo - moedas) ? '3900' : user.pessoa.carteira.saldo - moedas : '3900'}</p>
+                    <p>Saldo final: {user && user.pessoa && user.pessoa.carteira && moedas ? isNaN(user.pessoa.carteira.saldo - moedas) ? '0' : user.pessoa.carteira.saldo - moedas : '0'}</p>
                 </div>
             </div>
             <div>

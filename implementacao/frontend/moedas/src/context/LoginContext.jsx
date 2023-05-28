@@ -12,7 +12,6 @@ export const LoginProvider = ({ children }) => {
 
   useEffect(() => {
     const recoveredUser = JSON.parse(localStorage.getItem("userLAB"));
-    console.log(recoveredUser);
 
     if (recoveredUser) {
       fetch(
@@ -30,7 +29,6 @@ export const LoginProvider = ({ children }) => {
         .then((data) => {
           setUser(data);
           setLoading(false);
-          console.log(data);
         });
     } else setLoading(false);
   }, []);
