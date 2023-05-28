@@ -50,7 +50,7 @@ function CadastroDeVantagens() {
         body: formData,
       })
         .then(setOpenMessage(true))
-        .then(setTimeout(() => navigate("/vantagens"), 1000))
+        .then(setTimeout(() => navigate("/"), 1000))
         .catch((err) => console.log(err));
     } catch (error) {
       console.error("Erro de rede:", error);

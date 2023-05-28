@@ -1,82 +1,85 @@
+div.body {
+  padding: 0 15rem;
+}
 .vantagem {
-    display: flex;
-    flex-direction: row;
-    gap: 100px;
+  display: flex;
+  flex-direction: row;
+  gap: 100px;
 }
 
 .divImg {
-    flex: 0.8;
-    background-color: #D9D9D9;
-    min-width: 400px; 
-    max-width: 400px;
-    height: 350px;
-    border-radius: 30px;
-    transition: 0.5s;
-    cursor: pointer;
-}
-
-.divImg img:hover, .divImg:hover {
-    transform: scale(1.02);
+  flex: 0.8;
+  background-color: #d9d9d9;
+  min-width: 500px;
+  max-width: 500px;
+  height: 450px;
+  border-radius: 30px;
+  transition: 0.5s;
+  cursor: pointer;
 }
 
 .divImg img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 30px;
-    transition: 0.5s;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 30px;
+  transition: 0.5s;
 }
 
-.data{
-    flex: 1.2;
+.data {
+  flex: 1.2;
 }
 
-.preco, .descricao, .buttonTrocar {
-    margin-top: 40px;
+.preco,
+.descricao,
+.buttonTrocar {
+  margin-top: 40px;
 }
 
 .outrasVantagens {
-    margin-top: 50px;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 5rem;
 }
 
 .ponto {
-    color: #0075FF;
-    font-size: 22px;
+  color: #0075ff;
+  font-size: 22px;
 }
 
 .cards {
-    margin-top: 40px;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 100px;
+}
+
+@media (max-width: 1300px) {
+  .cards {
+    gap: 350px;
+  }
+}
+
+@media (max-width: 1250px) {
+  .cards {
+    gap: 200px;
+  }
+}
+
+@media (max-width: 1150px) {
+  .cards {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 1450px) {
+  .cards {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 100px;
-}
-
-@media (max-width: 1300px){
-    .cards {
-        gap: 350px;
-    }
-
-}
-
-@media (max-width: 1250px){
-    .cards {
-        gap: 200px;
-    }
-}
-
-@media(max-width: 1150px){
-    .cards {
-        width: 100%;
-        justify-content: center;
-    }
-}
-
-@media(min-width: 1450px){
-    .cards {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
+    justify-content: center;
+  }
 }
