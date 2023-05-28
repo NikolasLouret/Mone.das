@@ -49,6 +49,9 @@
 .row-gap-3rem {
   row-gap: 3rem;
 }
+.row-gap-5rem {
+  row-gap: 5em;
+}
 
 .absolute {
   position: absolute;
@@ -98,6 +101,10 @@
 
 .border-radius-1rem {
   border-radius: 1rem;
+}
+
+.max-width-50rem {
+  max-width: 50rem;
 }
 
 .final-page {

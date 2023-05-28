@@ -32,7 +32,7 @@ const Login = () => {
   };
 
   return (
-    <div className="login-body">
+    <div className="login-body flex flex-column row-gap-5rem max-width-50rem">
       <section className="title-section">
         <div className="title">
           <h5 className="subtitle">BEM-VINDO(A) DE VOLTA</h5>

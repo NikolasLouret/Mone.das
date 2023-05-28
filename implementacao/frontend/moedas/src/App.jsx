@@ -22,7 +22,10 @@ function App() {
         ></div>
       </div>
 
-      <div className="App backdrop-filter" style={{ padding: "10rem 5rem" }}>
+      <div
+        className="App flex flex-column justify-center backdrop-filter"
+        style={{ padding: "10rem 5rem" }}
+      >
         <AppRoutes />
       </div>
 
