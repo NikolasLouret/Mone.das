@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import styles from './EnviarMoedas.module.css'
 import Input from '../../components/inputs/Input'
 import Button from '../../components/buttons/Button'
 
 import Snackbar from '@mui/material/Snackbar'
 import MuiAlert from '@mui/material/Alert'
+
+import {BiErrorCircle} from 'react-icons/bi'
+
+import { LoginContext } from '../../context/LoginContext'
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />
@@ -14,8 +18,55 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 const EnviarMoedas = () => {
     const [aluno, setAluno] = useState({})
     const [valor, setValor] = useState(0)
+    const [moedas, setMoedas] = useState(0)
+    const [saldoTotal, setSaldoTotal] = useState(0);
+    const [disabled, setDisabled] = useState(false)
     const [openMessage, setOpenMessage] = useState(false)
     const [openErrorMessage, setOpenErrorMessage] = useState(false)
+    const [openCoinErrorMessage , setCoinErrorMessage] = useState(false)
+    const { user } = useContext(LoginContext)
+
+    useEffect(() => {
+      if (user && user.pessoa && user.pessoa.carteira) {
+        setSaldoTotal(user.pessoa.carteira.saldo);
+      }
+    }, [user]);
+    
+
+    function getAluno(e) {
+      const email = e.target.value;
+    
+      fetch(`http://localhost:3000/api/aluno/email/${email}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+        .then(resp => resp.json())
+        .then(data => {
+          if (data && data.pessoa) {
+            setAluno(data);
+            console.log(data)
+          } else {
+            setAluno({});
+          }
+        });
+    }
+
+    function coinValidation(e) {
+      const saldoTotal = user && user.pessoa && user.pessoa.carteira ? user.pessoa.carteira.saldo : 0;
+      const valorDigitado = parseInt(e.target.value);
+    
+      if (valorDigitado > saldoTotal) {
+        setDisabled(true)
+        setCoinErrorMessage(true)
+      } else {
+        setDisabled(false)
+        setMoedas(valorDigitado.toString())
+        setCoinErrorMessage(false)
+      }
+    }
+
 
     const handleClose = (event, reason) => {
       if (reason === 'clickaway') {
@@ -34,9 +85,9 @@ const EnviarMoedas = () => {
     }
 
     function handleChange(event) {
-      setValor(event.target.value)
+      setMoedas(event.target.value)
     }
-
+    
     function enviarMoedas(e){
         e.preventDefault()
         var email = document.getElementById('inputMatricula').value
@@ -48,34 +99,22 @@ const EnviarMoedas = () => {
           return
         }
 
-        fetch(`http://localhost:3000/api/aluno/email/${email}`, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json'
-            }
+        fetch(`http://localhost:3000/api/carteira/transacao`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            'descricao': mensagem,
+            'destino': aluno.pessoa._id,
+            'origem': user.pessoa._id,
+            'valor': parseInt(moedas)
           })
-          .then(resp => resp.json())
-          .then(data => {
-            setAluno(data)
-            if (data && data.pessoa) {
-              fetch(`http://localhost:3000/api/carteira/transacao`, {
-                method: 'PUT',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                  'descricao': mensagem,
-                  'destino': data.pessoa._id,
-                  'origem': '645e7836283a50729d368153',
-                  'valor': parseInt(moedas)
-                })
-              })
-              .then(resp => resp.json())
-              .then(setOpenMessage(true))
-              .catch(err => console.error(err))
-            }
-          })
-          .catch(err => console.error(err))
+        })
+        .then(resp => resp.json())
+        .then(setOpenMessage(true))
+        .catch(err => console.error(err))
+
     }
 
   return (
@@ -90,24 +129,25 @@ const EnviarMoedas = () => {
             </div>
             <div className={styles.inputParent}>
                 <div className={styles.input}>
-                    <Input type='text' name='Email' label='Email' id='inputMatricula' />
+                    <Input type='text' name='Email' label='Email' id='inputMatricula' onBlur={getAluno}/>
                 </div>
                 <div className={styles.inputInformations}>          
-                    <p>Nome: </p>
-                    <p>Matrícula: </p>
+                    <p>Nome: {aluno && aluno.pessoa ? aluno.pessoa.nome : ''}</p>
+                    <p>Curso: {aluno && aluno.curso ? aluno.curso : ''}</p>
                 </div>
             </div>
+            {openCoinErrorMessage && <div className={styles.pCoinMessage}><p><BiErrorCircle className={styles.iconError}/> Digite um valor menor que o seu saldo atual</p></div>}
             <div className={styles.inputParent}>
                 <div className={styles.input}>
-                    <Input type='number' name='Moedas' label='Moedas' id='inputMoedas' onChange={handleChange} onKeyDown={handleKeyDown} min='1'/>
+                    <Input type='number' name='Moedas' label='Moedas' id='inputMoedas' onChange={handleChange} onKeyDown={handleKeyDown} min='1' onBlur={coinValidation} />
                 </div>
                 <div className={styles.inputInformations}>          
-                    <p>Saldo atual: </p>
-                    <p>Saldo final: </p>
+                    <p>Saldo atual: {user && user.pessoa && user.pessoa.carteira ? user.pessoa.carteira.saldo : ''}</p>
+                    <p>Saldo final: {user && user.pessoa && user.pessoa.carteira && moedas ? isNaN(user.pessoa.carteira.saldo - moedas) ? '3900' : user.pessoa.carteira.saldo - moedas : '3900'}</p>
                 </div>
             </div>
             <div>
-                <Input type='text' className={styles.inputMensagem} name='Mensagem' label='Mensagem' id='inputMensagem'/>
+                <Input type='text' className={styles.inputMensagem} name='Mensagem' label='Mensagem' id='inputMensagem' disabled={disabled && disabled}/>
             </div>
             <div className={styles.divButton}>
                 <Button type='submit' className='submit' id='btnEnviar' children='Enviar' onClick={enviarMoedas}/>

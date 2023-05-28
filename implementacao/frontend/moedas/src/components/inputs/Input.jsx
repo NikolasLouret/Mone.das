@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import styles from './Input.module.css'
 
-const Input = ({ type, name, id, className, initialValue, onChange, label, required, disabled, onKeyDown, placeholder }) => {
+const Input = ({ type, name, id, className, initialValue, onChange, label, required, disabled, onKeyDown, placeholder, onBlur }) => {
     const [value, setValue] = useState("");
 
     const handleChange = ({ target }) => {
@@ -28,6 +28,7 @@ const Input = ({ type, name, id, className, initialValue, onChange, label, requi
                 required={ required && required }
                 disabled={ disabled && disabled }
                 onKeyDown={onKeyDown}
+                onBlur={onBlur}
             />
         </div>
     )

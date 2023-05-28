@@ -11,9 +11,7 @@ router.route("/aluno").get((req, res) => alunoController.getAll(req, res));
 router.route("/aluno/:id").get((req, res) => alunoController.get(req, res));
 
 // GET aluno by ID Pessoa
-router
-  .route("/aluno/pessoa/:id")
-  .get((req, res) => alunoController.getByIdPessoa(req, res));
+router.route("/aluno/pessoa/:id").get((req, res) => alunoController.getByIdPessoa(req, res));
 
 // DELETE aluno
 router.route("/aluno").delete((req, res) => alunoController.delete(req, res));

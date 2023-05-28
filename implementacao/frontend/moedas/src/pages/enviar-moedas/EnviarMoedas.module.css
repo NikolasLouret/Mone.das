@@ -40,6 +40,19 @@
     -ms-user-select: none;
 }
 
+.pCoinMessage {
+    margin-bottom: 20px;
+    background-color: rgb(161, 64, 64);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.iconError {
+    font-size: 20px;
+    position: relative;
+    top: 4px;
+}
+
 .inputParent {
     display: flex;
 }
