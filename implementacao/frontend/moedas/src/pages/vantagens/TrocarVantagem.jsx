@@ -49,7 +49,7 @@ const TrocarVantagem = () => {
         setVantagem(data);
         setTrocaVantagem(false);
       });
-  }, [trocaVantagem]);
+  }, [id, trocaVantagem]);
 
   function handleTrocaClick() {
     fetch(`http://localhost:3000/api/vantagem/${id}`, {

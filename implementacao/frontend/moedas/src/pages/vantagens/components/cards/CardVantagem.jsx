@@ -4,7 +4,6 @@ import styles from "./CardVantagem.module.css";
 import { GiTwoCoins } from "react-icons/gi";
 
 const CardVantagem = ({ content, onClick }) => {
-  console.log(content);
   return (
     <div
       className={styles.card}
