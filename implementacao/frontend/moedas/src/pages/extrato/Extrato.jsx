@@ -19,7 +19,7 @@ const Extrato = () => {
 
   useEffect(() => {
     setCarteira(user.pessoa.carteira);
-    setTransacoes(user.pessoa.carteira.operacao);
+    setTransacoes(user.pessoa.carteira.operacao.slice(0).reverse());
 
     setTimeout(() => {
       setIsLoading(false);
@@ -67,7 +67,7 @@ const Extrato = () => {
               </p>
 
               <div className="link-add-transacao">
-                {user.tipo === "aluno" ? (
+                {user.tipo === "Aluno" ? (
                   <LinkedButton
                     type="button"
                     id="btn-vantagem"
