@@ -1,6 +1,11 @@
+import React from "react";
+
 import { useContext, useEffect, useState } from "react";
 
 import styles from "./TrocarVantagem.module.css";
+
+import Snackbar from '@mui/material/Snackbar'
+import MuiAlert from '@mui/material/Alert'
 
 import { GiTwoCoins } from "react-icons/gi";
 
@@ -9,11 +14,16 @@ import CardVantagem from "./components/cards/CardVantagem";
 import { useParams, useNavigate } from "react-router-dom";
 import { LoginContext } from "../../context/LoginContext";
 
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />
+})
+
 const TrocarVantagem = () => {
   const { user } = useContext(LoginContext);
   const [vantagens, setVantagens] = useState([]);
   const [vantagem, setVantagem] = useState({});
   const [trocaVantagem, setTrocaVantagem] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(false)
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -51,20 +61,33 @@ const TrocarVantagem = () => {
       });
   }, [id, trocaVantagem]);
 
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+        return
+    }
+
+    setSuccessMessage(false)
+  }
+
   function handleTrocaClick() {
-    fetch(`http://localhost:3000/api/vantagem/${id}`, {
-      method: "GET",
+    fetch(`http://localhost:3000/api/carteira/transacao`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({
+        "origem": user.pessoa._id,
+        "destino": vantagem.empresa.pessoa._id,
+        "descricao": "Resgate de vantagem",
+        "valor": vantagem.preco,
+      }),
     })
       .then((resp) => {
         return resp.json();
       })
       .then((data) => {
-        setVantagem(data);
-        setTrocaVantagem(false);
-      });
+        setSuccessMessage(true)
+      }).catch(err => console.log(err))
   }
 
   function handleCardClick(e) {
@@ -97,7 +120,7 @@ const TrocarVantagem = () => {
           </div>
           {user.pessoa.tipo === "Aluno" && (
             <div className={styles.buttonTrocar}>
-              <Button className="yellow">Trocar por vantagem</Button>
+              <Button className="yellow" onClick={handleTrocaClick}>Trocar por vantagem</Button>
             </div>
           )}
         </div>
@@ -119,7 +142,13 @@ const TrocarVantagem = () => {
           </section>
         </div>
       )}
+      <Snackbar open={successMessage} autoHideDuration={2000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity='success' sx={{ width: '100%' }}>
+            Vantagem trocada com sucesso!
+        </Alert>
+      </Snackbar>
     </div>
+    
   );
 };
 
