@@ -9,7 +9,7 @@ const transport = nodemailer.createTransport({
     port: 587,
     secure: false,
     auth: {
-        user: 'testealunolab3@hotmail.com',
+        user: 'monedaslab3@hotmail.com',
         pass: 'A1234567..'
     }
 });
@@ -130,8 +130,8 @@ const carteiraController = {
                 sender: `<${remetente.email}>`,
                 to: `${remetente.email}`,
                 subject: 'Transação realizada',
-                html: `<p>Você recebeu ${valor} moedas de ${destinatario.nome} </br> Código: ${idIncremente}</p>`,
-                text: `Você recebeu ${valor} moedas de ${destinatario.nome} </br> Código: ${idIncremente}`
+                html: `<p>Você enviou ${valor} moedas para ${destinatario.nome} </br> Código: ${idIncremente}</p>`,
+                text: `Você enviou ${valor} moedas para ${destinatario.nome} </br> Código: ${idIncremente}`
             }).then(()=>{console.log("Emai enviado")})
             .catch((err)=>{
                 console.log(err)
