@@ -9,8 +9,8 @@ const transport = nodemailer.createTransport({
     port: 587,
     secure: false,
     auth: {
-        user: 'monedaslab3@hotmail.com',
-        pass: 'A1234567..'
+        user: '',
+        pass: ''
     }
 });
 const carteiraController = {
