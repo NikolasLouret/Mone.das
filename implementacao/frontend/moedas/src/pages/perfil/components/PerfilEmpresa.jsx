@@ -15,7 +15,7 @@ const PerfilEmpresa = ({ user, onSubmit, deleteAccount }) => {
       </section>
 
       <Form onSubmit={onSubmit}>
-        <div className="edit-login flex flex-column row-gap-1rem">
+        <div className="edit-login flex flex-column row-gap-1rem max-width-50rem">
           <Input
             type="text"
             name="nome"

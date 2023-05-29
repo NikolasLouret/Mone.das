@@ -1,16 +1,16 @@
-import './LinkedButton.css'
 import { Link } from 'react-router-dom'
+import Button from '../buttons/Button'
 
 const LinkedButton = ({ type, className, id, onClick, to, children }) => {
     return (
         <Link to={ to }>
-            <button type={ type }
+            <Button type={ type }
                 className={ className && className }
                 id={ id }
                 onClick={ onClick && onClick }
                 >
                     { children }
-                </button>
+                </Button>
         </Link>
     )
 }

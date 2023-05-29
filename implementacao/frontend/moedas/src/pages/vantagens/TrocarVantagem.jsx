@@ -148,7 +148,6 @@ const TrocarVantagem = () => {
         </Alert>
       </Snackbar>
     </div>
-    
   );
 };
 

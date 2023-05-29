@@ -15,7 +15,7 @@ const PerfilAluno = ({
   deleteAccount,
 }) => {
   return (
-    <div className="flex flex-column row-gap-10rem">
+    <div className="flex flex-column row-gap-10rem align-center">
       <section className="description-section">
         <div className="ponts">
           <span>moedas</span>
@@ -45,7 +45,7 @@ const PerfilAluno = ({
               type="button"
               id="btn-extrato"
               className="black"
-              to="/"
+              to="/extrato"
             >
               Ver extrato
             </LinkedButton>

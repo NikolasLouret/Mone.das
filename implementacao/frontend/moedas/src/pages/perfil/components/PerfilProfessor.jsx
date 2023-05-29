@@ -25,28 +25,17 @@ const PerfilProfessor = ({
 
         <div className="description">
           <h3 className="title-description">
-            Você pode gastar seus pontos em <span>vantagens</span>
+            Distribua <span>moedas</span> para seus alunos
           </h3>
-          <p className="description">
-            Acumule e gaste pontos em vantagens como desconto em restaurantes da
-            universidade, desconto de mensalidade ou compra de materiais
-            específicos
+          <p className="description">Distribua moedas aos seus alunos como forma de reconhecimento por bom comportamento, participação em aula, etcs.
           </p>
 
           <div className="hud-btn">
             <LinkedButton
               type="button"
-              id="btn-vantagem"
-              className="yellow"
-              to="/"
-            >
-              Ver Vantagens
-            </LinkedButton>
-            <LinkedButton
-              type="button"
               id="btn-extrato"
               className="black"
-              to="/"
+              to="/extrato"
             >
               Ver extrato
             </LinkedButton>
