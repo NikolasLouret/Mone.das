@@ -1,9 +1,11 @@
-import "./Extrato.css";
+import PDFGenerator from '../../components/pdf/PDFGenerator'
 
 import DetalhesCard from "./components/cards/detalhes/DetalhesCard";
 import SaldoCard from "./components/cards/saldo/SaldoCard";
 import TransacoesCard from "./components/cards/transacoes/TransacoesCard";
 import LinkedButton from "../../components/linked-buttons/LinkedButton";
+
+import "./Extrato.css";
 
 import { useState, useEffect, useContext } from "react";
 
@@ -16,6 +18,8 @@ const Extrato = () => {
   const [transacoes, setTransacoes] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const { user } = useContext(LoginContext);
+
+  const data = ['Item 1', 'Item 2', 'Item 3'];
 
   useEffect(() => {
     setCarteira(user.pessoa.carteira);
@@ -43,7 +47,8 @@ const Extrato = () => {
       ) : (
         <>
           <div className="saldo flex space-between column-gap-3rem">
-            <div className="grafico flex bg-darkgray box-shadow border-radius-1rem"></div>
+            <div className="grafico flex bg-darkgray box-shadow border-radius-1rem">
+            </div>
             <SaldoCard saldo={carteira.saldo} user={user} />
           </div>
 
@@ -58,6 +63,10 @@ const Extrato = () => {
                 {transacaoAtiva && (
                   <DetalhesCard transaction={transacaoAtiva} />
                 )}
+              </div>
+              <div>
+                {console.log(user)}
+                <PDFGenerator transacoes={transacoes} saldo={carteira.saldo} user={user} />
               </div>
             </div>
           ) : (
