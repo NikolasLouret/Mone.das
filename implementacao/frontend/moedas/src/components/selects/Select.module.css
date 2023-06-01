@@ -30,6 +30,7 @@ div.selectComponent > select {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+    color: #fff;
 }
 
 div.selectComponent >  select:focus {

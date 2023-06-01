@@ -112,6 +112,9 @@
 .max-width-50rem {
   max-width: 50rem;
 }
+.max-width-90rem {
+  max-width: 100rem;
+}
 
 .final-page {
   background: rgb(40, 42, 49);

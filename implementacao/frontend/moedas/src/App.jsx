@@ -28,11 +28,6 @@ function App() {
       >
         <AppRoutes />
       </div>
-
-      <div
-        className="final-page fixed"
-        style={{ width: "100%", height: "5rem", bottom: "0" }}
-      ></div>
     </>
   );
 }

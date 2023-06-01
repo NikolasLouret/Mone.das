@@ -4,7 +4,6 @@ import { useContext, useEffect, useState } from "react";
 
 import styles from "./TrocarVantagem.module.css";
 
-import Snackbar from '@mui/material/Snackbar'
 import MuiAlert from '@mui/material/Alert'
 
 import { GiTwoCoins } from "react-icons/gi";
@@ -19,11 +18,11 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 })
 
 const TrocarVantagem = () => {
-  const { user } = useContext(LoginContext);
+  const { user, updateUser } = useContext(LoginContext);
   const [vantagens, setVantagens] = useState([]);
   const [vantagem, setVantagem] = useState({});
   const [trocaVantagem, setTrocaVantagem] = useState(false);
-  const [successMessage, setSuccessMessage] = useState(false)
+  const [open, setOpen] = useState(false)
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -66,10 +65,10 @@ const TrocarVantagem = () => {
         return
     }
 
-    setSuccessMessage(false)
+    setOpen(false)
   }
 
-  function handleTrocaClick() {
+  function trocarVantagem() {
     fetch(`http://localhost:3000/api/carteira/transacao`, {
       method: "PUT",
       headers: {
@@ -86,7 +85,8 @@ const TrocarVantagem = () => {
         return resp.json();
       })
       .then((data) => {
-        setSuccessMessage(true)
+        setOpen(true)
+        window.location.href = "http://localhost:5173/extrato"
       }).catch(err => console.log(err))
   }
 
@@ -97,6 +97,9 @@ const TrocarVantagem = () => {
 
   return (
     <div className={styles.body}>
+        {open && <Alert onClose={handleClose} severity='success' sx={{ width: '100%' }}>
+            Vantagem trocada com sucesso!
+        </Alert>}
       <div className={styles.vantagem}>
         <div className={styles.divImg}>
           <img src={`http://localhost:3000/files/${vantagem.foto}`} alt="" />
@@ -120,7 +123,7 @@ const TrocarVantagem = () => {
           </div>
           {user.pessoa.tipo === "Aluno" && (
             <div className={styles.buttonTrocar}>
-              <Button className="yellow" onClick={handleTrocaClick}>Trocar por vantagem</Button>
+              <Button className="yellow" onClick={trocarVantagem}>Trocar por vantagem</Button>
             </div>
           )}
         </div>
@@ -142,13 +145,7 @@ const TrocarVantagem = () => {
           </section>
         </div>
       )}
-      <Snackbar open={successMessage} autoHideDuration={2000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity='success' sx={{ width: '100%' }}>
-            Vantagem trocada com sucesso!
-        </Alert>
-      </Snackbar>
     </div>
-    
   );
 };
 
