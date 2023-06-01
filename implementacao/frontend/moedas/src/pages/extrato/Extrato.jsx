@@ -65,7 +65,6 @@ const Extrato = () => {
                 )}
               </div>
               <div>
-                {console.log(user)}
                 <PDFGenerator transacoes={transacoes} saldo={carteira.saldo} user={user} />
               </div>
             </div>

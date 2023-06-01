@@ -46,7 +46,6 @@ const ListarVantagens = () => {
         setValue([min, max]);
       })
       .then(() => {
-        console.log(vantagens);
         setTimeout(() => {
           setIsLoading(false);
         }, 600);
