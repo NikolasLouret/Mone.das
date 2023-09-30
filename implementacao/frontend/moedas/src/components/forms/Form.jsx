@@ -1,23 +1,19 @@
-import { useRef } from "react";
+import { useRef } from 'react'
 
 // eslint-disable-next-line react/prop-types
 const Form = ({ onSubmit, children }) => {
-  const form = useRef(null);
+	const form = useRef(null)
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit(new FormData(form.current));
-  };
+	const handleSubmit = e => {
+		e.preventDefault()
+		onSubmit(new FormData(form.current))
+	}
 
-  return (
-    <form
-      ref={form}
-      className="form-component flex flex-column row-gap-3rem"
-      onSubmit={handleSubmit}
-    >
-      {children}
-    </form>
-  );
-};
+	return (
+		<form ref={form} className='form-component flex flex-column row-gap-3rem' onSubmit={handleSubmit}>
+			{children}
+		</form>
+	)
+}
 
-export default Form;
+export default Form

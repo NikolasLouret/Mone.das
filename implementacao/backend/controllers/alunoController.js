@@ -1,206 +1,183 @@
-const { Aluno: AlunoModel } = require("../models/Aluno");
-const { Pessoa: PessoaModel } = require("../models/Pessoa");
-const { PessoaControler } = require("../controllers/pessoaController");
-const fetch = require("node-fetch");
+const { Aluno: AlunoModel } = require('../models/Aluno')
+const { Pessoa: PessoaModel } = require('../models/Pessoa')
+const { PessoaControler } = require('../controllers/pessoaController')
+const fetch = require('node-fetch')
 
 const alunoController = {
-  create: async (req, res) => {
-    try {
-      const {
-        nome,
-        email,
-        senha,
-        cpf,
-        rg,
-        instituicaoEnsino,
-        curso,
-        endereco,
-      } = req.body;
+	create: async (req, res) => {
+		try {
+			const { nome, email, senha, cpf, rg, instituicaoEnsino, curso, endereco } = req.body
 
-      await fetch(`http://localhost:3000/api/pessoa`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          nome: nome,
-          senha: senha,
-          email: email,
-          tipo: "Aluno",
-        }),
-      })
-        .then((resp) => {
-          return resp.json();
-        })
-        .then(async (result) => {
-          let pessoa = result.response;
-          let aluno = {
-            pessoa,
-            cpf,
-            rg,
-            curso,
-            endereco,
-            instituicaoEnsino,
-          };
+			console.log(instituicaoEnsino)
 
-          let response = await AlunoModel.create(aluno);
+			await fetch(`http://localhost:3000/api/pessoa`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					nome: nome,
+					senha: senha,
+					email: email,
+					tipo: 'Aluno',
+				}),
+			})
+				.then(resp => {
+					return resp.json()
+				})
+				.then(async result => {
+					let pessoa = result.response
+					let aluno = {
+						pessoa,
+						cpf,
+						rg,
+						curso,
+						endereco,
+						instituicaoEnsino,
+					}
 
-          res
-            .status(201)
-            .json({ response, msg: "Aluno cadastrado com sucesso!" });
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  },
-  getAll: async (req, res) => {
-    try {
-      const alunos = await AlunoModel.find()
-        .populate("pessoa")
-        .populate("instituicaoEnsino");
+					let response = await AlunoModel.create(aluno)
 
-      res.status(201).json(alunos);
-    } catch (error) {
-      console.log(error);
-    }
-  },
-  get: async (req, res) => {
-    try {
-      const id = req.params.id;
-      const aluno = await AlunoModel.findById(id)
-        .populate("pessoa")
-        .populate("instituicaoEnsino");
+					res.status(201).json({ response, msg: 'Aluno cadastrado com sucesso!' })
+				})
+		} catch (error) {
+			console.log(error)
+		}
+	},
+	getAll: async (req, res) => {
+		try {
+			const alunos = await AlunoModel.find().populate('pessoa').populate('instituicaoEnsino')
 
-      if (!aluno) {
-        res.status(404).json({ msg: "Usuário não encontrado!" });
-        return;
-      }
+			res.status(201).json(alunos)
+		} catch (error) {
+			console.log(error)
+		}
+	},
+	get: async (req, res) => {
+		try {
+			const id = req.params.id
+			const aluno = await AlunoModel.findById(id).populate('pessoa').populate('instituicaoEnsino')
 
-      res.status(201).json(aluno);
-    } catch (error) {
-      console.log(error);
-    }
-  },
-  getByEmail: async (req, res) => {
-    try {
-      const email = req.params.email;
-      const pessoa = await PessoaModel.findOne({ email });
+			if (!aluno) {
+				res.status(404).json({ msg: 'Usuário não encontrado!' })
+				return
+			}
 
-      if (!pessoa) {
-        res.status(404).json({ msg: "Usuário não encontrado!" });
-        return;
-      }
+			res.status(201).json(aluno)
+		} catch (error) {
+			console.log(error)
+		}
+	},
+	getByEmail: async (req, res) => {
+		try {
+			const email = req.params.email
+			const pessoa = await PessoaModel.findOne({ email })
 
-      let aluno = await AlunoModel.findOne(
-        { pessoa: pessoa._id },
-        "pessoa curso"
-      );
+			if (!pessoa) {
+				res.status(404).json({ msg: 'Usuário não encontrado!' })
+				return
+			}
 
-      aluno = await aluno.populate({
-        path: "pessoa",
-        select: "nome",
-      });
+			let aluno = await AlunoModel.findOne({ pessoa: pessoa._id }, 'pessoa curso')
 
-      res.status(201).json(aluno);
-    } catch (error) {
-      console.log(error);
-    }
-  },
-  getByIdPessoa: async (req, res) => {
-    try {
-      const id = req.params.id;
-      let aluno = await AlunoModel.findOne({ pessoa: id });
+			aluno = await aluno.populate({
+				path: 'pessoa',
+				select: 'nome',
+			})
 
-      if (!aluno) {
-        res.status(404).json({ msg: "Usuário não encontrado!" });
-        return;
-      }
+			res.status(201).json(aluno)
+		} catch (error) {
+			console.log(error)
+		}
+	},
+	getByIdPessoa: async (req, res) => {
+		try {
+			const id = req.params.id
+			let aluno = await AlunoModel.findOne({ pessoa: id })
 
-      aluno = await aluno.populate({
-        path: "pessoa",
-        populate: {
-          path: "carteira",
-          populate: {
-            path: "operacao.destino operacao.origem",
-          },
-        },
-      });
+			if (!aluno) {
+				res.status(404).json({ msg: 'Usuário não encontrado!' })
+				return
+			}
 
-      aluno = await aluno.populate("instituicaoEnsino");
+			aluno = await aluno.populate({
+				path: 'pessoa',
+				populate: {
+					path: 'carteira',
+					populate: {
+						path: 'operacao.destino operacao.origem',
+					},
+				},
+			})
 
-      res.status(201).json(aluno);
-    } catch (error) {
-      console.log(error);
-    }
-  },
-  delete: async (req, res) => {
-    try {
-      const id = req.query.id;
-      const aluno = await AlunoModel.findById(id);
+			aluno = await aluno.populate('instituicaoEnsino')
 
-      if (!aluno) {
-        res.status(404).json({ msg: "Usuário não encontrado!" });
-        return;
-      }
+			res.status(201).json(aluno)
+		} catch (error) {
+			console.log(error)
+		}
+	},
+	delete: async (req, res) => {
+		try {
+			const id = req.query.id
+			const aluno = await AlunoModel.findById(id)
 
-      const deletedAluno = await AlunoModel.findByIdAndDelete(id);
+			if (!aluno) {
+				res.status(404).json({ msg: 'Usuário não encontrado!' })
+				return
+			}
 
-      res
-        .status(200)
-        .json({ deletedAluno, msg: "Usuário excluido com sucesso!" });
-    } catch (error) {
-      console.log(error);
-    }
-  },
-  update: async (req, res) => {
-    try {
-      const id = req.query.id;
-      const { nome, email, senha, endereco, instituicaoEnsino, curso } =
-        req.body;
+			const deletedAluno = await AlunoModel.findByIdAndDelete(id)
 
-      let pessoaAlunoUpdate = {
-        nome,
-        email,
-        senha,
-      };
-      const alunoUpdate = {
-        endereco,
-        instituicaoEnsino,
-        curso,
-      };
-      const updatedAluno = await AlunoModel.findByIdAndUpdate(id, alunoUpdate, {
-        new: true,
-      });
+			res.status(200).json({ deletedAluno, msg: 'Usuário excluido com sucesso!' })
+		} catch (error) {
+			console.log(error)
+		}
+	},
+	update: async (req, res) => {
+		try {
+			const id = req.query.id
+			const { nome, email, senha, endereco, instituicaoEnsino, curso } = req.body
 
-      const updatePessoaAluno = await PessoaModel.findByIdAndUpdate(
-        updatedAluno.pessoa._id,
-        pessoaAlunoUpdate,
-        { new: true }
-      );
+			let pessoaAlunoUpdate = {
+				nome,
+				email,
+				senha,
+			}
+			const alunoUpdate = {
+				endereco,
+				instituicaoEnsino,
+				curso,
+			}
+			const updatedAluno = await AlunoModel.findByIdAndUpdate(id, alunoUpdate, {
+				new: true,
+			})
 
-      if (!updatedAluno || !updatePessoaAluno) {
-        res.status(404).json({ msg: "Usuário não encontrado!" });
-        return;
-      }
+			const updatePessoaAluno = await PessoaModel.findByIdAndUpdate(updatedAluno.pessoa._id, pessoaAlunoUpdate, {
+				new: true,
+			})
 
-      let response = await updatedAluno.populate({
-        path: "pessoa",
-        populate: {
-          path: "carteira",
-          populate: {
-            path: "operacao.destino operacao.origem",
-          },
-        },
-      });
-      response = await response.populate("instituicaoEnsino");
+			if (!updatedAluno || !updatePessoaAluno) {
+				res.status(404).json({ msg: 'Usuário não encontrado!' })
+				return
+			}
 
-      res
-        .status(200)
-        .json({ response, msg: "Usuário atualizado com sucesso!" });
-    } catch (error) {
-      console.log(error);
-    }
-  },
-};
+			let response = await updatedAluno.populate({
+				path: 'pessoa',
+				populate: {
+					path: 'carteira',
+					populate: {
+						path: 'operacao.destino operacao.origem',
+					},
+				},
+			})
+			response = await response.populate('instituicaoEnsino')
 
-module.exports = alunoController;
+			res.status(200).json({ response, msg: 'Usuário atualizado com sucesso!' })
+		} catch (error) {
+			console.log(error)
+		}
+	},
+}
+
+module.exports = alunoController
