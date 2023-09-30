@@ -8,8 +8,6 @@ const alunoController = {
 		try {
 			const { nome, email, senha, cpf, rg, instituicaoEnsino, curso, endereco } = req.body
 
-			console.log(instituicaoEnsino)
-
 			await fetch(`http://localhost:3000/api/pessoa`, {
 				method: 'POST',
 				headers: {
